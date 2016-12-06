@@ -17,9 +17,6 @@ return array(
         '__JS__' => __ROOT__ . '/Public/' . MODULE_NAME . '/js',
         '__ZUI__'=>__ROOT__.'/Public/zui',
         '__NAME__'=>'Albert',
-        '__COMPANY__'=>'闹着玩的',
-        '__WEBSITE__'=>'暂时没有',
-        '__COMPANY_WEBSITE__'=>'暂时没有',
         '__VERSION__'=>'1.0',
     ),
     /* URL配置 */
