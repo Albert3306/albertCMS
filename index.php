@@ -27,5 +27,11 @@ if (!is_file( 'Conf/user.php')) {
     exit;
 }
 
+/**
+ * 缓存目录设置
+ * 此目录必须可写，建议移动到非WEB目录
+ */
+define ('RUNTIME_PATH', './Runtime/');
+
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';
