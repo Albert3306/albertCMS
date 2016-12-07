@@ -1,4 +1,11 @@
-# 忽略所有的.idea文件
+# 忽略.idea文件
 .idea
+
 # 忽略缓存文件下的所有文件
 /Runtime
+
+# 忽略.tags文件
+.tags
+
+# 忽略.tags_sorted_by_file文件
+.tags_sorted_by_file

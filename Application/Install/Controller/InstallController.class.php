@@ -11,7 +11,9 @@ class InstallController extends Controller{
         }
     }
 
-    //安装第一步，检测运行所需的环境设置
+    /**
+     * 安装第一步，检测运行所需的环境设置
+     */
     public function step1(){
         session('error', false);
 
@@ -32,5 +34,70 @@ class InstallController extends Controller{
         $this->assign('env', $env);
         $this->assign('func', $func);
         $this->display();
+    }
+
+    /**
+     * 安装第二步，创建数据库
+     */
+    public function step2($db = null, $admin = null){
+        if(IS_POST){
+            var_dump($_POST);exit;
+            //检测管理员信息
+            if(!is_array($admin) || empty($admin[0]) || empty($admin[1]) || empty($admin[3])){
+                $this->error('请填写完整管理员信息');
+            } else if($admin[1] != $admin[2]){
+                $this->error('确认密码和密码不一致');
+            } else {
+                $info = array();
+                list($info['username'], $info['password'], $info['repassword'], $info['email'])
+                    = $admin;
+                //缓存管理员信息
+                session('admin_info', $info);
+            }
+
+            //检测数据库配置
+            if(!is_array($db) || empty($db[0]) ||  empty($db[1]) || empty($db[2]) || empty($db[3])){
+                $this->error('请填写完整的数据库配置');
+            } else {
+                $DB = array();
+                list($DB['DB_TYPE'], $DB['DB_HOST'], $DB['DB_NAME'], $DB['DB_USER'], $DB['DB_PWD'],
+                    $DB['DB_PORT'], $DB['DB_PREFIX']) = $db;
+                //缓存数据库配置
+                cookie('db_config',$DB);
+
+                //创建数据库
+                $dbname = $DB['DB_NAME'];
+                unset($DB['DB_NAME']);
+
+                $db  = Db::getInstance($DB);
+
+                $sql = "CREATE DATABASE IF NOT EXISTS `{$dbname}` DEFAULT CHARACTER SET utf8";
+
+                try{
+                    $db->execute($sql);
+                }catch (\Think\Exception $e){
+                    if(strpos($e->getMessage(),'getaddrinfo failed')!==false){
+                        $this->error( '数据库服务器（数据库服务器IP） 填写错误。','很遗憾，创建数据库失败，失败原因');// 提示信息
+                    }
+                   if(strpos($e->getMessage(),'Access denied for user')!==false){
+                       $this->error('数据库用户名或密码 填写错误。','很遗憾，创建数据库失败，失败原因');// 提示信息
+                   }else{
+                       $this->error( $e->getMessage());// 提示信息
+                   }
+                }
+                session('step',2);
+                // $this->error($db->getError());exit;
+            }
+
+            //跳转到数据库安装页面
+            $this->redirect('step3');
+        } else {
+            session('error') && $this->error('环境检测没有通过，请调整环境后重试！');
+
+            $step = session('step');
+
+            session('step', 2);
+            $this->display();
+        }
     }
 }

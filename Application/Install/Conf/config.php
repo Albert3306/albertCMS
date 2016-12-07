@@ -23,5 +23,5 @@ return array(
     'URL_MODEL'      => 3, //URL模式
     'DEFAULT_THEME'  =>  'default',  // 默认模板主题名称
     'SESSION_PREFIX' => 'albert', //session前缀
-    'COOKIE_PREFIX'  => 'albert', // Cookie前缀 避免冲突
+    'COOKIE_PREFIX'  => 'albert_', // Cookie前缀 避免冲突
 );
