@@ -12,13 +12,7 @@ CREATE TABLE IF NOT EXISTS `albert_action` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `module` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统行为表';
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_action_limit`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统行为表';
 
 DROP TABLE IF EXISTS `albert_action_limit`;
 CREATE TABLE IF NOT EXISTS `albert_action_limit` (
@@ -36,21 +30,11 @@ CREATE TABLE IF NOT EXISTS `albert_action_limit` (
   `create_time` int(11) NOT NULL,
   `module` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 COMMENT '行为限制表';
-
---
--- 转存表中的数据 `albert_action_limit`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 COMMENT '行为限制表';
 
 INSERT INTO `albert_action_limit` (`id`, `title`, `name`, `frequency`, `time_number`, `time_unit`, `punish`, `if_message`, `message_content`, `action_list`, `status`, `create_time`, `module`) VALUES
 (1, 'reg', '注册限制', 1, 1, 'minute', 'warning', 0, '', '[reg]', 1, 0, ''),
 (2, 'input_password', '输密码', 3, 1, 'minute', 'warning', 0, '', '[input_password]', 1, 0, '');
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_action_log`
---
 
 DROP TABLE IF EXISTS `albert_action_log`;
 CREATE TABLE IF NOT EXISTS `albert_action_log` (
@@ -79,21 +63,11 @@ CREATE TABLE IF NOT EXISTS `albert_auth_group` (
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '用户组状态：为1正常，为0禁用,-1为删除',
   `rules` text NOT NULL COMMENT '用户组拥有的规则id，多个规则 , 隔开',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 COMMENT '用户组表';
-
---
--- 转存表中的数据 `albert_auth_group`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 COMMENT '用户组表';
 
 INSERT INTO `albert_auth_group` (`id`, `module`, `type`, `title`, `description`, `status`, `rules`) VALUES
 (1, 'admin', 1, '普通用户', '', 1, '1'),
 (2, 'admin', 1, 'VIP', '', 1, '1');
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_auth_group_access`
---
 
 DROP TABLE IF EXISTS `albert_auth_group_access`;
 CREATE TABLE IF NOT EXISTS `albert_auth_group_access` (
@@ -104,18 +78,8 @@ CREATE TABLE IF NOT EXISTS `albert_auth_group_access` (
   KEY `group_id` (`group_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `albert_auth_group_access`
---
-
 INSERT INTO `albert_auth_group_access` (`uid`, `group_id`) VALUES
 (1, 1);
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_auth_rule`
---
 
 DROP TABLE IF EXISTS `albert_auth_rule`;
 CREATE TABLE IF NOT EXISTS `albert_auth_rule` (
@@ -130,12 +94,6 @@ CREATE TABLE IF NOT EXISTS `albert_auth_rule` (
   KEY `module` (`module`,`status`,`type`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '用户组权限校验表';
 
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_avatar`
---
-
 DROP TABLE IF EXISTS `albert_avatar`;
 CREATE TABLE IF NOT EXISTS `albert_avatar` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -147,12 +105,6 @@ CREATE TABLE IF NOT EXISTS `albert_avatar` (
   `is_temp` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '上传头像表';
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_config`
---
 
 DROP TABLE IF EXISTS `albert_config`;
 CREATE TABLE IF NOT EXISTS `albert_config` (
@@ -172,13 +124,7 @@ CREATE TABLE IF NOT EXISTS `albert_config` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`group`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT '系统配置表';
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_district`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '系统配置表';
 
 DROP TABLE IF EXISTS `albert_district`;
 CREATE TABLE IF NOT EXISTS `albert_district` (
@@ -187,11 +133,7 @@ CREATE TABLE IF NOT EXISTS `albert_district` (
   `level` tinyint(4) unsigned NOT NULL DEFAULT '0',
   `upid` mediumint(8) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='中国省市区乡镇数据表' AUTO_INCREMENT=910007 ;
-
---
--- 转存表中的数据 `albert_district`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='中国省市区乡镇数据表' AUTO_INCREMENT=910007 ;
 
 INSERT INTO `albert_district` (`id`, `name`, `level`, `upid`) VALUES
 (110000, '北京市', 1, 0),
@@ -3745,12 +3687,6 @@ INSERT INTO `albert_district` (`id`, `name`, `level`, `upid`) VALUES
 (710004, '花莲县', 3, 710003),
 (910006, '东莞市', 3, 441900);
 
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_file`
---
-
 DROP TABLE IF EXISTS `albert_file`;
 CREATE TABLE IF NOT EXISTS `albert_file` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件ID',
@@ -3769,12 +3705,6 @@ CREATE TABLE IF NOT EXISTS `albert_file` (
   UNIQUE KEY `uk_md5` (`md5`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文件表';
 
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_menu`
---
-
 DROP TABLE IF EXISTS `albert_menu`;
 CREATE TABLE IF NOT EXISTS `albert_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
@@ -3790,13 +3720,7 @@ CREATE TABLE IF NOT EXISTS `albert_menu` (
   `module` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT '菜单表';
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_module`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '菜单表';
 
 DROP TABLE IF EXISTS `albert_module`;
 CREATE TABLE IF NOT EXISTS `albert_module` (
@@ -3818,13 +3742,7 @@ CREATE TABLE IF NOT EXISTS `albert_module` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   KEY `name_2` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='模块管理表';
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_picture`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='模块管理表';
 
 DROP TABLE IF EXISTS `albert_picture`;
 CREATE TABLE IF NOT EXISTS `albert_picture` (
@@ -3837,13 +3755,7 @@ CREATE TABLE IF NOT EXISTS `albert_picture` (
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT '图片表';
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_role`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '图片表';
 
 DROP TABLE IF EXISTS `albert_role`;
 CREATE TABLE IF NOT EXISTS `albert_role` (
@@ -3860,20 +3772,10 @@ CREATE TABLE IF NOT EXISTS `albert_role` (
   `create_time` int(11) NOT NULL,
   `update_time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='角色表' AUTO_INCREMENT=2 ;
-
---
--- 转存表中的数据 `albert_role`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='角色表' AUTO_INCREMENT=2 ;
 
 INSERT INTO `albert_role` (`id`, `group_id`, `name`, `title`, `description`, `user_groups`, `invite`, `audit`, `sort`, `status`, `create_time`, `update_time`) VALUES
 (1, 0, 'default', '普通用户', '普通用户', '1', 0, 0, 0, 1, 1452489319, 1452489319);
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_role_config`
---
 
 DROP TABLE IF EXISTS `albert_role_config`;
 CREATE TABLE IF NOT EXISTS `albert_role_config` (
@@ -3887,12 +3789,6 @@ CREATE TABLE IF NOT EXISTS `albert_role_config` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='角色配置表' AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_role_group`
---
-
 DROP TABLE IF EXISTS `albert_role_group`;
 CREATE TABLE IF NOT EXISTS `albert_role_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -3900,12 +3796,6 @@ CREATE TABLE IF NOT EXISTS `albert_role_group` (
   `update_time` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='角色分组' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_seo_rule`
---
 
 DROP TABLE IF EXISTS `albert_seo_rule`;
 CREATE TABLE IF NOT EXISTS `albert_seo_rule` (
@@ -3921,13 +3811,7 @@ CREATE TABLE IF NOT EXISTS `albert_seo_rule` (
   `sort` int(11) NOT NULL,
   `summary` varchar(500) NOT NULL COMMENT 'seo变量介绍',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT 'SEO表';
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_admin`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT 'SEO表';
 
 DROP TABLE IF EXISTS `albert_admin`;
 CREATE TABLE IF NOT EXISTS `albert_admin` (
@@ -3936,12 +3820,6 @@ CREATE TABLE IF NOT EXISTS `albert_admin` (
   `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '管理员状态',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='管理员表' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_user`
---
 
 DROP TABLE IF EXISTS `albert_user`;
 CREATE TABLE IF NOT EXISTS `albert_user` (
@@ -3959,16 +3837,16 @@ CREATE TABLE IF NOT EXISTS `albert_user` (
   `type` tinyint(4) NOT NULL COMMENT '1为用户名注册，2为邮箱注册，3为手机注册',
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 DROP TABLE IF EXISTS `albert_user_info`;
 CREATE TABLE IF NOT EXISTS `albert_user_info` (
   `uid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `nickname` char(32) NOT NULL DEFAULT '' COMMENT '昵称',
   `sex` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '性别',
-  `birthday` date NOT NULL DEFAULT '0000-00-00' COMMENT '生日',
-  `qq` char(10) NOT NULL DEFAULT '' COMMENT 'qq号',
-  `login` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '登录次数',
+  `birthday` int(11) NOT NULL DEFAULT 0 COMMENT '生日',
+  `qq` char(10) NOT NULL DEFAULT 0 COMMENT 'qq号',
+  `login` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '登录次数',
   `reg_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '注册IP',
   `reg_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '注册时间',
   `last_login_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '最后登录IP',
@@ -3976,21 +3854,15 @@ CREATE TABLE IF NOT EXISTS `albert_user_info` (
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '会员状态',
   `last_login_role` int(11) NOT NULL,
   `show_role` int(11) NOT NULL COMMENT '个人主页显示角色',
-  `signature` text NOT NULL,
-  `pos_province` int(11) NOT NULL,
-  `pos_city` int(11) NOT NULL,
-  `pos_district` int(11) NOT NULL,
-  `pos_community` int(11) NOT NULL,
+  `signature` text DEFAULT NULL COMMENT '签名',
+  `pos_province` int(11) DEFAULT 0 COMMENT '省',
+  `pos_city` int(11) DEFAULT 0 COMMENT '市',
+  `pos_district` int(11) DEFAULT 0 COMMENT '区、县',
+  `pos_community` int(11) DEFAULT 0 COMMENT '社区',
   PRIMARY KEY (`uid`),
   KEY `status` (`status`),
   KEY `name` (`nickname`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='会员表';
-
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_user_config`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='会员表';
 
 DROP TABLE IF EXISTS `albert_user_config`;
 CREATE TABLE IF NOT EXISTS `albert_user_config` (
@@ -4003,12 +3875,6 @@ CREATE TABLE IF NOT EXISTS `albert_user_config` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户配置信息表' AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
---
--- 表的结构 `albert_user_role`
---
-
 DROP TABLE IF EXISTS `albert_user_role`;
 CREATE TABLE IF NOT EXISTS `albert_user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -4018,11 +3884,7 @@ CREATE TABLE IF NOT EXISTS `albert_user_role` (
   `step` varchar(50) NOT NULL COMMENT '记录当前执行步骤',
   `init` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否初始化',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户角色关联' AUTO_INCREMENT=2 ;
-
---
--- 转存表中的数据 `albert_user_role`
---
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户角色关联' AUTO_INCREMENT=2 ;
 
 INSERT INTO `albert_user_role` (`id`, `uid`, `role_id`, `status`, `step`, `init`) VALUES
 (1, 1, 1, 1, 'finish', 1);
