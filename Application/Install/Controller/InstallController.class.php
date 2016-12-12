@@ -41,7 +41,6 @@ class InstallController extends Controller{
      */
     public function step2($db = null, $admin = null){
         if(IS_POST){
-            var_dump($_POST);exit;
             //检测管理员信息
             if(!is_array($admin) || empty($admin[0]) || empty($admin[1]) || empty($admin[3])){
                 $this->error('请填写完整管理员信息');
@@ -86,7 +85,6 @@ class InstallController extends Controller{
                    }
                 }
                 session('step',2);
-                // $this->error($db->getError());exit;
             }
 
             //跳转到数据库安装页面
@@ -98,6 +96,34 @@ class InstallController extends Controller{
 
             session('step', 2);
             $this->display();
+        }
+    }
+
+    //安装第三步，安装数据表，创建配置文件
+    public function step3(){
+        $this->display();
+
+        //连接数据库
+        $dbconfig = cookie('db_config');
+        $db = Db::getInstance($dbconfig);
+        //创建数据表
+        create_tables($db, $dbconfig['DB_PREFIX']);
+        //注册创始人帐号
+        $auth  = build_auth_key();
+        $admin = session('admin_info');
+        register_administrator($db, $dbconfig['DB_PREFIX'], $admin, $auth);
+
+        //创建配置文件
+        $conf   =   write_config($dbconfig, $auth);
+        session('config_file',$conf);
+
+        if(session('error')){
+            show_msg(session('error'));
+        } else {
+            session('step', 3);
+            echo "<script type=\"text/javascript\">setTimeout(function(){location.href='".U('Index/complete')."'},5000)</script>";
+            ob_flush();
+            flush();
         }
     }
 }

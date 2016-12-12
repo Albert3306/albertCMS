@@ -9,3 +9,8 @@
 
 # 忽略.tags_sorted_by_file文件
 .tags_sorted_by_file
+
+# 忽略 /Conf下的common.php、install.lock、user.php面所有文件
+/Conf/common.php
+/Conf/install.lock
+/Conf/user.php
