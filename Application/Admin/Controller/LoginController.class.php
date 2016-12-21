@@ -18,4 +18,12 @@ class LoginController extends Controller
             $this->display();
         }
     }
+
+    /**
+     * 验证码切换
+     */
+    public function verify()
+    {
+        verify();
+    }
 }

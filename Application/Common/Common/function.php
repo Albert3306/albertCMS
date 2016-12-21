@@ -60,3 +60,43 @@ function data_auth_sign($data)
     $sign = sha1($code); //生成签名
     return $sign;
 }
+
+/**
+ * 获取验证码
+ * @param  integer $id 需要生成验证码的标识
+ * @return string      返回生成后的验证码
+ */
+function verify($id = 1)
+{
+    $type = C('VERIFY_TYPE');
+    $verify = new \Think\Verify();
+    switch ($type) {
+        case 1 :
+            $verify->useZh = true;
+            break;
+        case 2 :
+            $verify->codeSet = 'abcdefhijkmnpqrstuvwxyzABCDEFGHJKLMNPQRTUVWXY';
+            break;
+        case 3 :
+            $verify->codeSet = '0123456789';
+            break;
+        case 4 :
+            break;
+        default:
+
+    }
+    $verify->entry($id);
+}
+
+function check_verify_open($open)
+{
+    $config = C('VERIFY_OPEN');
+
+    if ($config) {
+        $config = explode(',', $config);
+        if (in_array($open, $config)) {
+            return true;
+        }
+    }
+    return false;
+}
