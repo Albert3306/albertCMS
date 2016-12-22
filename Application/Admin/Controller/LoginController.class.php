@@ -10,10 +10,15 @@ class LoginController extends Controller
     /**
      * 后端登录
      */
-    public function login()
+    public function login($username = null, $password = null, $verify = null)
     {
         if (IS_POST) {
-            # code...
+            /* 检测验证码 TODO: */
+            if (APP_DEBUG == false){
+                if(!check_verify($verify)){
+                    $this->error(L('LOGIN_VERIFY_ERROR'),U('Login/login'),true);
+                }
+            }
         } else {
             $this->display();
         }
