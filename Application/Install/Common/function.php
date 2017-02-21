@@ -219,12 +219,9 @@ function register_administrator($db, $prefix, $admin, $auth)
     $uid = 1;
     /*插入用户*/
     $sql = <<<sql
-REPLACE INTO `[PREFIX]user` (`id`, `username`, `password`, `email`, `mobile`, `reg_time`, `reg_ip`, `last_login_time`, `last_login_ip`, `update_time`, `status`, `type`) VALUES
-('[UID]', '[NAME]', '[PASS]','[EMAIL]', '', '[TIME]', '[IP]', '[TIME]', '[IP]',  '[TIME]', 1, 1);
+REPLACE INTO `[PREFIX]user` (`id`, `username`, `nickname`, `signature`, `password`, `email`, `mobile`, `login`, `reg_time`, `reg_ip`, `last_login_time`, `last_login_ip`, `update_time`, `status`, `type`) VALUES
+('[UID]', '[NAME]', '[NAME]', '', '[PASS]','[EMAIL]', '', 0, '[TIME]', '[IP]', '[TIME]', '[IP]',  '[TIME]', 1, 1);
 sql;
-
-    /*  "REPLACE INTO `[PREFIX]user` VALUES " .
-         "('1', '[NAME]', '[PASS]', '[EMAIL]', '', '[TIME]', '[IP]', 0, 0, '[TIME]', '1',1,'finish')";*/
 
     $password = user_md5($admin['password'], $auth);
     $sql = str_replace(
@@ -233,12 +230,6 @@ sql;
         $sql);
     //执行sql
     $db->execute($sql);
-
-    /*插入用户资料*/
-    $sql = <<<sql
-REPLACE INTO `[PREFIX]user_info` (`uid`, `nickname`, `sex`, `birthday`, `qq`, `login`, `reg_ip`, `reg_time`, `last_login_ip`, `last_login_role`, `show_role`, `last_login_time`, `status`) VALUES
-('[UID]','[NAME]', 0,  '0', '', 1, 0, '[TIME]', 0, 1, 1, '[TIME]', 1);
-sql;
 
     $sql = str_replace(
         array('[PREFIX]', '[NAME]', '[TIME]', '[UID]'),

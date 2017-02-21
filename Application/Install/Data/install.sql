@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS `albert_action`;
 CREATE TABLE IF NOT EXISTS `albert_action` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -3835,3 +3834,28 @@ CREATE TABLE IF NOT EXISTS `albert_user` (
   KEY `username` (`username`),
   KEY `nickname` (`nickname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户表';
+
+DROP TABLE IF EXISTS `albert_user_role`;
+CREATE TABLE `albert_user_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `status` tinyint(4) NOT NULL COMMENT '2：未审核，1:启用，0：禁用，-1：删除',
+  `step` varchar(50) NOT NULL COMMENT '记录当前执行步骤',
+  `init` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否初始化',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户角色关联';
+
+DROP TABLE IF EXISTS `albert_version`;
+CREATE TABLE `albert_version` (
+  `title` varchar(50) NOT NULL COMMENT '版本名',
+  `create_time` int(11) NOT NULL COMMENT '发布时间',
+  `update_time` int(11) NOT NULL COMMENT '更新的时间',
+  `log` text NOT NULL COMMENT '更新日志',
+  `url` varchar(150) NOT NULL COMMENT '链接到的远程文章',
+  `number` int(11) NOT NULL COMMENT '序列号，一般用日期数字标示',
+  `name` varchar(50) NOT NULL COMMENT '版本号',
+  `is_current` tinyint(4) NOT NULL,
+  PRIMARY KEY (`name`),
+  KEY `id` (`number`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='自动更新表';
