@@ -3813,21 +3813,16 @@ CREATE TABLE IF NOT EXISTS `albert_seo_rule` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT 'SEO表';
 
-DROP TABLE IF EXISTS `albert_admin`;
-CREATE TABLE IF NOT EXISTS `albert_admin` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '管理员ID',
-  `member_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '管理员用户ID',
-  `status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '管理员状态',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='管理员表' AUTO_INCREMENT=1 ;
-
 DROP TABLE IF EXISTS `albert_user`;
 CREATE TABLE IF NOT EXISTS `albert_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `username` char(32) NOT NULL COMMENT '用户名',
+  `nickname` char(32) NOT NULL DEFAULT '' COMMENT '昵称',
+  `signature` text DEFAULT NULL COMMENT '签名',
   `password` char(32) NOT NULL COMMENT '密码',
   `email` char(32) NOT NULL COMMENT '用户邮箱',
   `mobile` char(15) NOT NULL COMMENT '用户手机',
+  `login` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '登录次数',
   `reg_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '注册时间',
   `reg_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '注册IP',
   `last_login_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录时间',
@@ -3836,55 +3831,7 @@ CREATE TABLE IF NOT EXISTS `albert_user` (
   `status` tinyint(4) DEFAULT '0' COMMENT '用户状态',
   `type` tinyint(4) NOT NULL COMMENT '1为用户名注册，2为邮箱注册，3为手机注册',
   PRIMARY KEY (`id`),
-  KEY `status` (`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户表';
-
-DROP TABLE IF EXISTS `albert_user_info`;
-CREATE TABLE IF NOT EXISTS `albert_user_info` (
-  `uid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `nickname` char(32) NOT NULL DEFAULT '' COMMENT '昵称',
-  `sex` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '性别',
-  `birthday` int(11) NOT NULL DEFAULT 0 COMMENT '生日',
-  `qq` char(10) NOT NULL DEFAULT 0 COMMENT 'qq号',
-  `login` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '登录次数',
-  `reg_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '注册IP',
-  `reg_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '注册时间',
-  `last_login_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '最后登录IP',
-  `last_login_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录时间',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '会员状态',
-  `last_login_role` int(11) NOT NULL,
-  `show_role` int(11) NOT NULL COMMENT '个人主页显示角色',
-  `signature` text DEFAULT NULL COMMENT '签名',
-  `pos_province` int(11) DEFAULT 0 COMMENT '省',
-  `pos_city` int(11) DEFAULT 0 COMMENT '市',
-  `pos_district` int(11) DEFAULT 0 COMMENT '区、县',
-  `pos_community` int(11) DEFAULT 0 COMMENT '社区',
-  PRIMARY KEY (`uid`),
   KEY `status` (`status`),
-  KEY `name` (`nickname`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='会员表';
-
-DROP TABLE IF EXISTS `albert_user_config`;
-CREATE TABLE IF NOT EXISTS `albert_user_config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `role_id` int(11) NOT NULL DEFAULT '0',
-  `model` varchar(30) NOT NULL,
-  `value` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户配置信息表' AUTO_INCREMENT=1 ;
-
-DROP TABLE IF EXISTS `albert_user_role`;
-CREATE TABLE IF NOT EXISTS `albert_user_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL COMMENT '2：未审核，1:启用，0：禁用，-1：删除',
-  `step` varchar(50) NOT NULL COMMENT '记录当前执行步骤',
-  `init` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否初始化',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户角色关联' AUTO_INCREMENT=2 ;
-
-INSERT INTO `albert_user_role` (`id`, `uid`, `role_id`, `status`, `step`, `init`) VALUES
-(1, 1, 1, 1, 'finish', 1);
+  KEY `username` (`username`),
+  KEY `nickname` (`nickname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户表';
