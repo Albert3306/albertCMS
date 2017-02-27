@@ -19,7 +19,7 @@ class LoginController extends Controller
                     $this->error(L('LOGIN_VERIFY_ERROR'),U('Login/login'),true);
                 }
             }
-
+            echo UC_SYNC;exit;
         } else {
             $this->display();
         }
