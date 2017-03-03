@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `albert_action`;
 CREATE TABLE IF NOT EXISTS `albert_action` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '行为 ID',
   `name` char(30) NOT NULL DEFAULT '' COMMENT '行为唯一标识',
   `title` char(80) NOT NULL DEFAULT '' COMMENT '行为说明',
   `remark` char(140) NOT NULL DEFAULT '' COMMENT '行为描述',
@@ -15,34 +15,34 @@ CREATE TABLE IF NOT EXISTS `albert_action` (
 
 DROP TABLE IF EXISTS `albert_action_limit`;
 CREATE TABLE IF NOT EXISTS `albert_action_limit` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `frequency` int(11) NOT NULL,
-  `time_number` int(11) NOT NULL,
-  `time_unit` varchar(50) NOT NULL,
-  `punish` text NOT NULL,
-  `if_message` tinyint(4) NOT NULL,
-  `message_content` text NOT NULL,
-  `action_list` text NOT NULL,
-  `status` tinyint(4) NOT NULL,
-  `create_time` int(11) NOT NULL,
-  `module` varchar(20) NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '行为限制 ID',
+  `title` varchar(100) NOT NULL COMMENT '行为',
+  `name` varchar(50) NOT NULL COMMENT '行为名称',
+  `frequency` int(11) NOT NULL COMMENT '频率',
+  `time_number` int(11) NOT NULL COMMENT '时间次数',
+  `time_unit` varchar(50) NOT NULL COMMENT '时间单位',
+  `punish` text NOT NULL COMMENT '惩罚',
+  `is_message` tinyint(4) NOT NULL COMMENT '是否提示消息',
+  `message_content` text NOT NULL COMMENT '消息内容',
+  `action_list` text NOT NULL COMMENT '行为列表',
+  `status` tinyint(4) NOT NULL COMMENT '状态',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
+  `module` varchar(20) NOT NULL COMMENT '模块',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 COMMENT '行为限制表';
 
-INSERT INTO `albert_action_limit` (`id`, `title`, `name`, `frequency`, `time_number`, `time_unit`, `punish`, `if_message`, `message_content`, `action_list`, `status`, `create_time`, `module`) VALUES
+INSERT INTO `albert_action_limit` (`id`, `title`, `name`, `frequency`, `time_number`, `time_unit`, `punish`, `is_message`, `message_content`, `action_list`, `status`, `create_time`, `module`) VALUES
 (1, 'reg', '注册限制', 1, 1, 'minute', 'warning', 0, '', '[reg]', 1, 0, ''),
 (2, 'input_password', '输密码', 3, 1, 'minute', 'warning', 0, '', '[input_password]', 1, 0, '');
 
 DROP TABLE IF EXISTS `albert_action_log`;
 CREATE TABLE IF NOT EXISTS `albert_action_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `action_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '行为id',
-  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '执行用户id',
-  `action_ip` bigint(20) NOT NULL COMMENT '执行行为者ip',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '行为日志 ID',
+  `action_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '行为 ID',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '执行用户 ID',
+  `action_ip` bigint(20) NOT NULL COMMENT '执行行为者IP',
   `model` varchar(50) NOT NULL DEFAULT '' COMMENT '触发行为的表',
-  `record_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '触发行为的数据id',
+  `record_id` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '触发行为的数据 ID',
   `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '日志备注',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '执行行为的时间',
@@ -54,24 +54,23 @@ CREATE TABLE IF NOT EXISTS `albert_action_log` (
 
 DROP TABLE IF EXISTS `albert_auth_group`;
 CREATE TABLE IF NOT EXISTS `albert_auth_group` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户组id,自增主键',
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户组 ID',
   `module` varchar(20) NOT NULL COMMENT '用户组所属模块',
   `type` tinyint(4) NOT NULL COMMENT '组类型',
   `title` char(20) NOT NULL DEFAULT '' COMMENT '用户组中文名称',
-  `description` varchar(80) NOT NULL DEFAULT '' COMMENT '描述信息',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '用户组状态：为1正常，为0禁用,-1为删除',
-  `rules` text NOT NULL COMMENT '用户组拥有的规则id，多个规则 , 隔开',
+  `description` varchar(80) DEFAULT '' COMMENT '描述信息',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '用户组状态 1：正常 0：禁用 -1：删除',
+  `rules` text NOT NULL COMMENT '用户组拥有的规则 ID，多个规则 , 隔开',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 COMMENT '用户组表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 COMMENT '用户组表';
 
 INSERT INTO `albert_auth_group` (`id`, `module`, `type`, `title`, `description`, `status`, `rules`) VALUES
-(1, 'admin', 1, '普通用户', '', 1, '1'),
-(2, 'admin', 1, 'VIP', '', 1, '1');
+(1, 'admin', 1, '普通用户', '', 1, '1');
 
 DROP TABLE IF EXISTS `albert_auth_group_access`;
 CREATE TABLE IF NOT EXISTS `albert_auth_group_access` (
-  `uid` int(10) unsigned NOT NULL COMMENT '用户id',
-  `group_id` mediumint(8) unsigned NOT NULL COMMENT '用户组id',
+  `uid` int(10) unsigned NOT NULL COMMENT '用户 ID',
+  `group_id` mediumint(8) unsigned NOT NULL COMMENT '用户组 ID',
   UNIQUE KEY `uid_group_id` (`uid`,`group_id`),
   KEY `uid` (`uid`),
   KEY `group_id` (`group_id`)
@@ -82,12 +81,12 @@ INSERT INTO `albert_auth_group_access` (`uid`, `group_id`) VALUES
 
 DROP TABLE IF EXISTS `albert_auth_rule`;
 CREATE TABLE IF NOT EXISTS `albert_auth_rule` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键',
-  `module` varchar(20) NOT NULL COMMENT '规则所属module',
-  `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1-url;2-主菜单',
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `module` varchar(20) NOT NULL COMMENT '规则所属 MODULE',
+  `type` tinyint(2) NOT NULL DEFAULT '1' COMMENT '1：URL 2：主菜单',
   `name` char(80) NOT NULL DEFAULT '' COMMENT '规则唯一英文标识',
   `title` char(20) NOT NULL DEFAULT '' COMMENT '规则中文描述',
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否有效(0:无效,1:有效)',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否有效 0：无效 1：有效',
   `condition` varchar(300) NOT NULL DEFAULT '' COMMENT '规则附加条件',
   PRIMARY KEY (`id`),
   KEY `module` (`module`,`status`,`type`)
@@ -95,19 +94,20 @@ CREATE TABLE IF NOT EXISTS `albert_auth_rule` (
 
 DROP TABLE IF EXISTS `albert_avatar`;
 CREATE TABLE IF NOT EXISTS `albert_avatar` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `path` varchar(200) NOT NULL,
-  `driver` varchar(50) NOT NULL,
-  `create_time` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `is_temp` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '头像 ID',
+  `uid` int(11) NOT NULL COMMENT '用户 ID',
+  `path` varchar(200) NOT NULL COMMENT '头像存储路径',
+  `driver` varchar(50) NOT NULL COMMENT '驱动',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
+  `status` int(11) NOT NULL COMMENT '状态',
+  `is_temp` int(11) NOT NULL COMMENT '是否是临时的',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '上传头像表';
 
 DROP TABLE IF EXISTS `albert_config`;
 CREATE TABLE IF NOT EXISTS `albert_config` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置 ID',
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '配置名称',
   `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '配置类型',
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '配置说明',
@@ -127,12 +127,12 @@ CREATE TABLE IF NOT EXISTS `albert_config` (
 
 DROP TABLE IF EXISTS `albert_district`;
 CREATE TABLE IF NOT EXISTS `albert_district` (
-  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `level` tinyint(4) unsigned NOT NULL DEFAULT '0',
-  `upid` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT'ID',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '名称',
+  `level` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '级别',
+  `upid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '父级 ID',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='中国省市区乡镇数据表' AUTO_INCREMENT=910007 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=910007 COMMENT='中国省市区乡镇数据表';
 
 INSERT INTO `albert_district` (`id`, `name`, `level`, `upid`) VALUES
 (110000, '北京市', 1, 0),
@@ -3688,15 +3688,15 @@ INSERT INTO `albert_district` (`id`, `name`, `level`, `upid`) VALUES
 
 DROP TABLE IF EXISTS `albert_file`;
 CREATE TABLE IF NOT EXISTS `albert_file` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件ID',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件 ID',
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '原始文件名',
   `savename` varchar(100) NOT NULL DEFAULT '' COMMENT '保存名称',
   `savepath` varchar(255) NOT NULL DEFAULT '' COMMENT '文件保存路径',
   `ext` char(5) NOT NULL DEFAULT '' COMMENT '文件后缀',
-  `mime` char(40) NOT NULL DEFAULT '' COMMENT '文件mime类型',
+  `mime` char(40) NOT NULL DEFAULT '' COMMENT '文件 MIME 类型',
   `size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小',
-  `md5` char(32) NOT NULL DEFAULT '' COMMENT '文件md5',
-  `sha1` char(40) NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
+  `md5` char(32) NOT NULL DEFAULT '' COMMENT '文件 MD5',
+  `sha1` char(40) NOT NULL DEFAULT '' COMMENT '文件 SHA1 编码',
   `location` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '文件保存位置',
   `create_time` int(10) unsigned NOT NULL COMMENT '上传时间',
   `driver` varchar(50) NOT NULL,
@@ -3706,9 +3706,9 @@ CREATE TABLE IF NOT EXISTS `albert_file` (
 
 DROP TABLE IF EXISTS `albert_menu`;
 CREATE TABLE IF NOT EXISTS `albert_menu` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档 ID',
   `title` varchar(50) NOT NULL DEFAULT '' COMMENT '标题',
-  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上级分类ID',
+  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上级分类 ID',
   `sort` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '排序（同级有效）',
   `url` char(255) NOT NULL DEFAULT '' COMMENT '链接地址',
   `hide` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否隐藏',
@@ -3723,7 +3723,7 @@ CREATE TABLE IF NOT EXISTS `albert_menu` (
 
 DROP TABLE IF EXISTS `albert_module`;
 CREATE TABLE IF NOT EXISTS `albert_module` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT'模块 ID',
   `name` varchar(30) NOT NULL COMMENT '模块名',
   `alias` varchar(30) NOT NULL COMMENT '中文名',
   `version` varchar(20) NOT NULL COMMENT '版本号',
@@ -3745,12 +3745,12 @@ CREATE TABLE IF NOT EXISTS `albert_module` (
 
 DROP TABLE IF EXISTS `albert_picture`;
 CREATE TABLE IF NOT EXISTS `albert_picture` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id自增',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键 ID 自增',
   `type` varchar(50) NOT NULL,
   `path` varchar(255) NOT NULL DEFAULT '' COMMENT '路径',
   `url` varchar(255) NOT NULL DEFAULT '' COMMENT '图片链接',
-  `md5` char(32) NOT NULL DEFAULT '' COMMENT '文件md5',
-  `sha1` char(40) NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
+  `md5` char(32) NOT NULL DEFAULT '' COMMENT '文件 MD5',
+  `sha1` char(40) NOT NULL DEFAULT '' COMMENT '文件 SHA1 编码',
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
@@ -3758,12 +3758,12 @@ CREATE TABLE IF NOT EXISTS `albert_picture` (
 
 DROP TABLE IF EXISTS `albert_role`;
 CREATE TABLE IF NOT EXISTS `albert_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `group_id` int(11) NOT NULL COMMENT '角色组id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `group_id` int(11) NOT NULL COMMENT '角色组 ID',
   `name` varchar(25) NOT NULL COMMENT '英文标识',
   `title` varchar(25) NOT NULL COMMENT '中文标题',
   `description` varchar(500) NOT NULL COMMENT '描述',
-  `user_groups` varchar(200) NOT NULL COMMENT '默认用户组ids',
+  `user_groups` varchar(200) NOT NULL COMMENT '默认用户组 IDS',
   `invite` tinyint(4) NOT NULL COMMENT '预留字段(类型：是否需要邀请注册等)',
   `audit` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否需要审核',
   `sort` int(10) NOT NULL DEFAULT '0',
@@ -3776,45 +3776,25 @@ CREATE TABLE IF NOT EXISTS `albert_role` (
 INSERT INTO `albert_role` (`id`, `group_id`, `name`, `title`, `description`, `user_groups`, `invite`, `audit`, `sort`, `status`, `create_time`, `update_time`) VALUES
 (1, 0, 'default', '普通用户', '普通用户', '1', 0, 0, 0, 1, 1452489319, 1452489319);
 
-DROP TABLE IF EXISTS `albert_role_config`;
-CREATE TABLE IF NOT EXISTS `albert_role_config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_id` int(11) NOT NULL,
-  `name` varchar(25) NOT NULL COMMENT '标识',
-  `category` varchar(25) NOT NULL COMMENT '归类标识',
-  `value` text NOT NULL COMMENT '配置值',
-  `data` text NOT NULL COMMENT '该配置的其它值',
-  `update_time` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='角色配置表' AUTO_INCREMENT=1 ;
-
-DROP TABLE IF EXISTS `albert_role_group`;
-CREATE TABLE IF NOT EXISTS `albert_role_group` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(25) NOT NULL,
-  `update_time` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='角色分组' AUTO_INCREMENT=1 ;
-
 DROP TABLE IF EXISTS `albert_seo_rule`;
 CREATE TABLE IF NOT EXISTS `albert_seo_rule` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` text NOT NULL,
-  `app` varchar(40) NOT NULL,
-  `controller` varchar(40) NOT NULL,
-  `action` varchar(40) NOT NULL,
-  `status` tinyint(4) NOT NULL,
-  `seo_keywords` text NOT NULL,
-  `seo_description` text NOT NULL,
-  `seo_title` text NOT NULL,
-  `sort` int(11) NOT NULL,
-  `summary` varchar(500) NOT NULL COMMENT 'seo变量介绍',
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `title` text NOT NULL COMMENT'标题',
+  `app` varchar(40) NOT NULL COMMENT '模块名',
+  `controller` varchar(40) NOT NULL COMMENT '控制器名',
+  `action` varchar(40) NOT NULL COMMENT '方法名',
+  `status` tinyint(4) NOT NULL COMMENT '状态',
+  `seo_keywords` text NOT NULL COMMENT 'SEO 关键词',
+  `seo_description` text NOT NULL COMMENT 'SEO 描述',
+  `seo_title` text NOT NULL COMMENT 'SEO 标题',
+  `sort` int(11) NOT NULL COMMENT '排序',
+  `summary` varchar(500) NOT NULL COMMENT 'SEO 变量介绍',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT 'SEO表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT 'SEO 表';
 
 DROP TABLE IF EXISTS `albert_user`;
 CREATE TABLE IF NOT EXISTS `albert_user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户 ID',
   `username` char(32) NOT NULL COMMENT '用户名',
   `nickname` char(32) NOT NULL DEFAULT '' COMMENT '昵称',
   `signature` text DEFAULT NULL COMMENT '签名',
@@ -3823,12 +3803,12 @@ CREATE TABLE IF NOT EXISTS `albert_user` (
   `mobile` char(15) NOT NULL COMMENT '用户手机',
   `login` int(10) unsigned NOT NULL DEFAULT 0 COMMENT '登录次数',
   `reg_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '注册时间',
-  `reg_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '注册IP',
+  `reg_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '注册 IP',
   `last_login_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录时间',
-  `last_login_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '最后登录IP',
+  `last_login_ip` bigint(20) NOT NULL DEFAULT '0' COMMENT '最后登录 IP',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint(4) DEFAULT '0' COMMENT '用户状态',
-  `type` tinyint(4) NOT NULL COMMENT '1为用户名注册，2为邮箱注册，3为手机注册',
+  `type` tinyint(4) NOT NULL COMMENT '1：用户名注册 2：邮箱注册 3：手机注册',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `username` (`username`),
@@ -3840,7 +3820,7 @@ CREATE TABLE `albert_user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL COMMENT '2：未审核，1:启用，0：禁用，-1：删除',
+  `status` tinyint(4) NOT NULL COMMENT '2：未审核 1：启用 0：禁用 -1：删除',
   `step` varchar(50) NOT NULL COMMENT '记录当前执行步骤',
   `init` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否初始化',
   PRIMARY KEY (`id`)
