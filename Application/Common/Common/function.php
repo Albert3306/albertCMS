@@ -1,5 +1,4 @@
 <?php
-const THINK_ADDON_PATH = './Addons/';
 
 /**
  * 系统公共库文件
@@ -110,4 +109,15 @@ function check_verify($code, $id = 1)
 {
     $verify = new \Think\Verify();
     return $verify->check($code, $id);
+}
+
+/**
+ * 系统密码加密方法
+ * @param  string $str 需要加密的字符串
+ * @param  string $key 加密密匙
+ * @return string      加密后的字符串
+ */
+function get_password_md5($str, $key = 'Albert')
+{
+    return '' === $str ? '' : md5(sha1($str) . $key);
 }
