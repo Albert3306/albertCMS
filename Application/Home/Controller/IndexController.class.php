@@ -1,10 +1,12 @@
 <?php
 namespace Home\Controller;
 
+use Think\Controller;
+
 /**
  * 前端首页控制器
  */
-class IndexController extends HomeController
+class IndexController extends Controller
 {
     private $ip;
     private $port;
@@ -22,6 +24,6 @@ class IndexController extends HomeController
      */
     public function index()
     {
-        echo 111;
+        echo 'This is Home!';
     }
 }
