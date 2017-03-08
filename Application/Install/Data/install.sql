@@ -3792,8 +3792,8 @@ CREATE TABLE IF NOT EXISTS `albert_seo_rule` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT 'SEO 表';
 
-DROP TABLE IF EXISTS `albert_user`;
-CREATE TABLE IF NOT EXISTS `albert_user` (
+DROP TABLE IF EXISTS `albert_users`;
+CREATE TABLE IF NOT EXISTS `albert_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户 ID',
   `username` char(32) NOT NULL COMMENT '用户名',
   `nickname` char(32) NOT NULL DEFAULT '' COMMENT '昵称',

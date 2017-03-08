@@ -3,7 +3,7 @@ namespace Admin\Controller;
 use \Think\Controller;
 
 /**
- * 后端公共控制器
+ * 后台公共控制器
  */
 class AdminController extends Controller
 {

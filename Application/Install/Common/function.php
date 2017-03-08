@@ -66,7 +66,6 @@ function check_dirfile()
         array('dir', '可写', 'ok', './Uploads/Download'),
         array('dir', '可写', 'ok', './Uploads/Picture'),
         array('dir', '可写', 'ok', './Runtime'),
-        array('file', '可写', 'ok', './Conf/user.php'),
         array('file', '可写', 'ok', './Conf/config.php'),
 
     );
@@ -144,28 +143,21 @@ function write_config($config, $auth)
     if (is_array($config)) {
         //读取配置内容
         $conf = file_get_contents(MODULE_PATH . 'Data/conf.tpl');
-        $user = file_get_contents(MODULE_PATH . 'Data/user.tpl');
         //替换配置项
         foreach ($config as $name => $value) {
             $conf = str_replace("[{$name}]", $value, $conf);
-            $user = str_replace("[{$name}]", $value, $user);
         }
 
         $conf = str_replace('[AUTH_KEY]', $auth, $conf);
-        $user = str_replace('[AUTH_KEY]', $auth, $user);
 
         //写入应用配置文件
         if (!IS_WRITE) {
             return '由于您的环境不可写，请复制下面的配置文件内容覆盖到相关的配置文件，然后再登录后台。<p>' . realpath('') . './Conf/common.php</p>
             <textarea name="" style="width:650px;height:185px">' . $conf . '</textarea>
-            <p>' . realpath('') . './Conf/user.php</p>
-            <textarea name="" style="width:650px;height:125px">' . $user . '</textarea>';
+            <p>';
         } else {
-            if (file_put_contents('./Conf/common.php', $conf) &&
-                file_put_contents('./Conf/user.php', $user)
-            ) {
+            if (file_put_contents('./Conf/common.php', $conf)) {
                 chmod('./Conf/common.php', 0777);
-                chmod('./Conf/user.php', 0777);
                 show_msg('配置文件写入成功');
             } else {
                 show_msg('配置文件写入失败！', 'error');
@@ -219,11 +211,11 @@ function register_administrator($db, $prefix, $admin, $auth)
     $uid = 1;
     /*插入用户*/
     $sql = <<<sql
-REPLACE INTO `[PREFIX]user` (`id`, `username`, `nickname`, `signature`, `password`, `email`, `mobile`, `login`, `reg_time`, `reg_ip`, `last_login_time`, `last_login_ip`, `update_time`, `status`, `type`) VALUES
+REPLACE INTO `[PREFIX]users` (`id`, `username`, `nickname`, `signature`, `password`, `email`, `mobile`, `login`, `reg_time`, `reg_ip`, `last_login_time`, `last_login_ip`, `update_time`, `status`, `type`) VALUES
 ('[UID]', '[NAME]', '[NAME]', '', '[PASS]','[EMAIL]', '', 0, '[TIME]', '[IP]', '[TIME]', '[IP]',  '[TIME]', 1, 1);
 sql;
 
-    $password = user_md5($admin['password'], $auth);
+    $password = get_password_md5($admin['password'], $auth);
     $sql = str_replace(
         array('[PREFIX]', '[NAME]', '[PASS]', '[EMAIL]', '[TIME]', '[IP]', '[UID]'),
         array($prefix, $admin['username'], $password, $admin['email'], NOW_TIME, get_client_ip(1), $uid),
@@ -274,16 +266,4 @@ function show_msg($msg, $class = '')
     echo "<script type=\"text/javascript\">showmsg(\"{$msg}\", \"{$class}\")</script>";
     ob_flush();
     flush();
-
-
-}
-
-/**
- * 系统非常规MD5加密方法
- * @param  string $str 要加密的字符串
- * @return string
- */
-function user_md5($str, $key = '')
-{
-    return '' === $str ? '' : md5(sha1($str) . $key);
 }
