@@ -12,7 +12,7 @@ define('APP_DEBUG',true);
 // 定义应用目录
 define('APP_PATH','./Application/');
 
-if (!is_file( 'Conf/user.php')) {
+if (!is_file( 'Conf/common.php')) {
     header('Location: ./install.php');
     exit;
 }
