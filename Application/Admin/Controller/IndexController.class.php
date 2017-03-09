@@ -11,12 +11,6 @@ class IndexController extends AdminController
      */
     public function index()
     {
-        // 判断是否登录
-        if (UID) {
-            # code...
-        } else {
-            // 还没登录 跳转到登录页面
-            $this->redirect('Login/login');
-        }
+        echo 1111;
     }
 }

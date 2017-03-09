@@ -14,6 +14,11 @@ class LoginController extends Controller
      */
     public function _initialize()
     {
+        // 判断是否已经登录
+        if (UID) {
+            $this->redirect('Index/index');
+        }
+
         $this->users_db = D('Common/Users');
     }
 
@@ -30,8 +35,25 @@ class LoginController extends Controller
                 }
             }
 
-            // 执行用户登录
-            $uid = $this->users_db->login($username,$password);
+            // 验证用户并执行登录
+            $user = $this->users_db->login($username,$password);
+            if ($user['id'] > 0) {
+                /* 记录登录SESSION和COOKIES */
+                $auth = array(
+                    'uid'             => $user['id'],
+                    'username'        => $user['nickname'],
+                    'last_login_time' => $user['last_login_time'],
+                    'type'            => $user['type'],
+                );
+
+                session('admin_user_auth', $auth);
+                session('admin_user_auth_sign', data_auth_sign($auth));
+
+                // 登录成功，跳转页面
+                $this->success('登录成功！', U('Index/index'));
+            } else {
+                $this->error($this->getErrorMsg($user),U('Login/login',true));
+            }
         } else {
             $this->display();
         }

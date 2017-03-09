@@ -9,24 +9,24 @@ class UsersModel extends Model{
     /* 用户模型自动验证 */
     protected $_validate = array(
         /* 验证用户名 */
-        array('username', 'checkUsernameLength', -1, self::EXISTS_VALIDATE,'callback'), //用户名长度不合法
-        array('username', 'checkDenyMember', -2, self::EXISTS_VALIDATE, 'callback'), //用户名禁止注册
+        array('username', 'checkUsernameLength', -1, self::EXISTS_VALIDATE,'callback'), // 用户名长度不合法
+        array('username', 'checkDenyMember', -2, self::EXISTS_VALIDATE, 'callback'), // 用户名禁止注册
         array('username', 'checkUsername', -20, self::EXISTS_VALIDATE, 'callback'),
-        array('username', '', -3, self::EXISTS_VALIDATE, 'unique'), //用户名被占用
+        array('username', '', -3, self::EXISTS_VALIDATE, 'unique'), // 用户名被占用
 
         /* 验证密码 */
-        array('password', '6,30', -4, self::EXISTS_VALIDATE, 'length'), //密码长度不合法
+        array('password', '6,30', -4, self::EXISTS_VALIDATE, 'length'), // 密码长度不合法
 
         /* 验证邮箱 */
-        array('email', 'email', -5, self::EXISTS_VALIDATE), //邮箱格式不正确
-        array('email', '4,32', -6, self::EXISTS_VALIDATE, 'length'), //邮箱长度不合法
-        array('email', 'checkDenyEmail', -7, self::EXISTS_VALIDATE, 'callback'), //邮箱禁止注册
-        array('email', '', -8, self::EXISTS_VALIDATE, 'unique'), //邮箱被占用
+        array('email', 'email', -5, self::EXISTS_VALIDATE), // 邮箱格式不正确
+        array('email', '4,32', -6, self::EXISTS_VALIDATE, 'length'), // 邮箱长度不合法
+        array('email', 'checkDenyEmail', -7, self::EXISTS_VALIDATE, 'callback'), // 邮箱禁止注册
+        array('email', '', -8, self::EXISTS_VALIDATE, 'unique'), // 邮箱被占用
 
         /* 验证手机号码 */
-        array('mobile', '/^(1[3|4|5|8])[0-9]{9}$/', -9, self::EXISTS_VALIDATE), //手机格式不正确 TODO:
-        array('mobile', 'checkDenyMobile', -10, self::EXISTS_VALIDATE, 'callback'), //手机禁止注册
-        array('mobile', '', -11, self::EXISTS_VALIDATE, 'unique'), //手机号被占用
+        array('mobile', '/^(1[3|4|5|8])[0-9]{9}$/', -9, self::EXISTS_VALIDATE), // 手机格式不正确 TODO:
+        array('mobile', 'checkDenyMobile', -10, self::EXISTS_VALIDATE, 'callback'), // 手机禁止注册
+        array('mobile', '', -11, self::EXISTS_VALIDATE, 'unique'), // 手机号被占用
     );
 
     /* 用户模型自动完成 */
@@ -79,12 +79,12 @@ class UsersModel extends Model{
      */
     protected function checkDenyEmail($email)
     {
-        return true; //TODO: 暂不限制，下一个版本完善
+        return true; // TODO: 暂不限制，下一个版本完善
     }
 
     protected function checkUsername($username)
     {
-        //如果用户名中有空格，不允许注册
+        // 如果用户名中有空格，不允许注册
         if (strpos($username, ' ') !== false) {
             return false;
         }
@@ -103,7 +103,7 @@ class UsersModel extends Model{
      */
     protected function checkDenyMobile($mobile)
     {
-        return true; //TODO: 暂不限制，下一个版本完善
+        return true; // TODO: 暂不限制，下一个版本完善
     }
 
     /**
@@ -112,7 +112,7 @@ class UsersModel extends Model{
      */
     protected function getStatus()
     {
-        return true; //TODO: 暂不限制，下一个版本完善
+        return true; // TODO: 暂不限制，下一个版本完善
     }
 
     /**
@@ -139,7 +139,7 @@ class UsersModel extends Model{
                 $map['id'] = $username;
                 break;
             default:
-                return 0; //参数错误
+                return 0; // 参数错误
         }
         /* 获取用户数据 */
         $user = $this->where($map)->find();
@@ -152,15 +152,30 @@ class UsersModel extends Model{
 
         if (is_array($user) && $user['status']) {
             /* 验证用户密码 */
-            if (get_password_md5($password, UC_AUTH_KEY) === $user['password']) {
-                $this->updateLogin($user['id']); //更新用户登录信息
-                return $user['id']; //登录成功，返回用户ID
+            if (get_password_md5($password, C('DATA_AUTH_KEY')) === $user['password']) {
+                $this->updateLogin($user['id']); // 更新用户登录信息
+                return $user; // 登录成功，返回用户数据
             } else {
                 action_log('input_password','users',$user['id'],$user['id']);
-                return -2; //密码错误
+                return -2; // 密码错误
             }
         } else {
-            return -1; //用户不存在或被禁用
+            return -1; // 用户不存在或被禁用
         }
+    }
+
+    /**
+     * 更新用户登录信息
+     * @param  integer $uid 用户ID
+     */
+    protected function updateLogin($uid)
+    {
+        $data = array(
+            'id' => $uid,
+            'login' => array('exp', '`login`+1'),
+            'last_login_time' => NOW_TIME,
+            'last_login_ip' => get_client_ip(1),
+        );
+        $this->save($data);
     }
 }
