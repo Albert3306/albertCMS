@@ -11,24 +11,23 @@ function check_env()
     $items = array(
         'os' => array('操作系统', '不限制', '类Unix', PHP_OS, 'success'),
         'php' => array('PHP版本', '5.3', '5.3+', PHP_VERSION, 'success'),
-        //'mysql'   => array('MYSQL版本', '5.0', '5.0+', '未知', 'success'), //PHP5.5不支持mysql版本检测
         'upload' => array('附件上传', '不限制', '2M+', '未知', 'success'),
         'gd' => array('GD库', '2.0', '2.0+', '未知', 'success'),
         'curl' => array('Curl扩展', '开启', '不限制', '未知', 'success'),
         'disk' => array('磁盘空间', '5M', '不限制', '未知', 'success'),
     );
 
-    //PHP环境检测
+    // PHP 环境检测
     if ($items['php'][3] < $items['php'][1]) {
         $items['php'][4] = 'remove';
         session('error', true);
     }
 
-    //附件上传检测
+    // 附件上传检测
     if (@ini_get('file_uploads'))
         $items['upload'][3] = ini_get('upload_max_filesize');
 
-    //GD库检测
+    // GD 库检测
     $tmp = function_exists('gd_info') ? gd_info() : array();
     if (empty($tmp['GD Version'])) {
         $items['gd'][3] = '未安装';
@@ -48,7 +47,7 @@ function check_env()
         $items['curl'][3] = $tmp['version'];
     }
     unset($tmp);
-    //磁盘空间检测
+    // 磁盘空间检测
     if (function_exists('disk_free_space')) {
         $items['disk'][3] = floor(disk_free_space(INSTALL_APP_PATH) / (1024 * 1024)) . 'M';
     }
@@ -141,20 +140,19 @@ function check_func()
 function write_config($config, $auth)
 {
     if (is_array($config)) {
-        //读取配置内容
+        // 读取配置内容
         $conf = file_get_contents(MODULE_PATH . 'Data/conf.tpl');
-        //替换配置项
+        // 替换配置项
         foreach ($config as $name => $value) {
             $conf = str_replace("[{$name}]", $value, $conf);
         }
 
         $conf = str_replace('[AUTH_KEY]', $auth, $conf);
 
-        //写入应用配置文件
+        // 写入应用配置文件
         if (!IS_WRITE) {
             return '由于您的环境不可写，请复制下面的配置文件内容覆盖到相关的配置文件，然后再登录后台。<p>' . realpath('') . './Conf/common.php</p>
-            <textarea name="" style="width:650px;height:185px">' . $conf . '</textarea>
-            <p>';
+            <textarea name="" style="width:650px;height:185px">' . $conf . '</textarea>';
         } else {
             if (file_put_contents('./Conf/common.php', $conf)) {
                 chmod('./Conf/common.php', 0777);
@@ -175,17 +173,17 @@ function write_config($config, $auth)
  */
 function create_tables($db, $prefix = '')
 {
-    //读取SQL文件
+    // 读取 SQL 文件
     $sql = file_get_contents(MODULE_PATH . 'Data/install.sql');
     $sql = str_replace("\r", "\n", $sql);
     $sql = explode(";\n", $sql);
 
-    //替换表前缀
+    // 替换表前缀
     $orginal = C('ORIGINAL_TABLE_PREFIX');
     $sql = str_replace(" `{$orginal}", " `{$prefix}", $sql);
 
 
-    //开始安装
+    // 开始安装
     show_msg('开始安装数据库...');
     foreach ($sql as $value) {
         $value = trim($value);
@@ -209,7 +207,7 @@ function register_administrator($db, $prefix, $admin, $auth)
 {
     show_msg('开始注册创始人帐号...');
     $uid = 1;
-    /*插入用户*/
+    /* 插入用户 */
     $sql = <<<sql
 REPLACE INTO `[PREFIX]users` (`id`, `username`, `nickname`, `signature`, `password`, `email`, `mobile`, `login`, `reg_time`, `reg_ip`, `last_login_time`, `last_login_ip`, `update_time`, `status`, `type`) VALUES
 ('[UID]', '[NAME]', '[NAME]', '', '[PASS]','[EMAIL]', '', 0, '[TIME]', '[IP]', '[TIME]', '[IP]',  '[TIME]', 1, 1);
@@ -220,7 +218,7 @@ sql;
         array('[PREFIX]', '[NAME]', '[PASS]', '[EMAIL]', '[TIME]', '[IP]', '[UID]'),
         array($prefix, $admin['username'], $password, $admin['email'], NOW_TIME, get_client_ip(1), $uid),
         $sql);
-    //执行sql
+    // 执行sql
     $db->execute($sql);
 
     $sql = str_replace(
@@ -231,7 +229,7 @@ sql;
 
     $db->execute($sql);
 
-    /*初始化角色表*/
+    /* 初始化角色表 */
     $sql = <<<sql
 REPLACE INTO `[PREFIX]role` (`id`, `group_id`, `name`, `title`, `description`, `user_groups`, `invite`, `audit`, `sort`, `status`, `create_time`, `update_time`) VALUES
     (1, 0, 'default', '普通用户', '普通用户', '1', 0, 0, 0, 1, [TIME], [TIME]);
@@ -242,7 +240,7 @@ sql;
         $sql);
     $db->execute($sql);
 
-    /*插入角色和用户对应关系*/
+    /* 插入角色和用户对应关系 */
     $sql = <<<sql
 REPLACE INTO `[PREFIX]user_role` (`id`, `uid`, `role_id`, `status`, `step`, `init`) VALUES
     (1, [UID], 1, 1, 'finish', 1);
@@ -253,7 +251,7 @@ sql;
         $sql);
     $db->execute($sql);
 
-    /*初始化用户角色end*/
+    /* 初始化用户角色 end */
     show_msg('创始人帐号注册完成！');
 }
 
