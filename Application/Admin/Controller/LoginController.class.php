@@ -26,7 +26,7 @@ class LoginController extends Controller
             /* 检测验证码 TODO: */
             if (APP_DEBUG == false){
                 if(!check_verify($verify)){
-                    $this->error(L('LOGIN_VERIFY_ERROR'),U('Login/login'),true);
+                    $this->error('验证码输入错误！',U('Login/login'),true);
                 }
             }
 
@@ -58,15 +58,15 @@ class LoginController extends Controller
                 break;
 
             case 0:
-                $msg = L('LOGIN_UNKNOWN_ERROR');
+                $msg = '未知错误，请稍后再试！';
                 break;
             
             case -1:
-                $msg = L('USERS_DO_NOT_EXIST_OR_ARE_DISABLED');
+                $msg = '用户不存在或被禁用！';
                 break;
             
             case -2:
-                $msg = L('LOGIN_PASSWORD_ERROR');
+                $msg = '密码错误，请重新输入！';
                 break;
         }
 

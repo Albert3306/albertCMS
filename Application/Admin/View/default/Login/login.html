@@ -15,33 +15,33 @@
             <div class="login-body">
                 <div class="login-main pr">
                     <form action="{:U('login')}" method="post" class="login-form">
-                        <h3 class="welcome">{:L('LOGIN_ADMIN')}</h3>
+                        <h3 class="welcome">登录后台</h3>
                         <div id="itemBox" class="item-box">
                             <div class="input-group user-name" >
                                 <span class="input-group-addon"><i class="icon-user"></i></span>
-                                <input type="text" name="username" class="form-control" placeholder="{:L('LOGIN_USERNAME')}">
+                                <input type="text" name="username" class="form-control" placeholder="登录后台">
                             </div>
                             <div class="input-group password">
                                 <span class="input-group-addon"><i class="icon-lock"></i></span>
-                                <input type="password" name="password"  class="form-control" placeholder="{:L('LOGIN_PASSWORD')}">
+                                <input type="password" name="password"  class="form-control" placeholder="密码">
                             </div>
                             <if condition="APP_DEBUG eq false">
                                 <div class="input-group password">
                                     <span class="input-group-addon"><i class="icon-ok"></i></span>
-                                    <input type="text" name="verify" class="form-control" placeholder="{:L('LOGIN_VERIFY')}" autocomplete="off">
+                                    <input type="text" name="verify" class="form-control" placeholder="验证码" autocomplete="off">
                                     <span class="input-group-btn">
                                     <button class="btn btn-default reloadverify" type="button"><i class="icon-refresh"></i></button>
                                     </span>
                                 </div>
                                 <div>
-                                    <img class="verifyimg reloadverify" alt="{:L('LOGIN_CLICK_SWITCH')}" src="{:U('Login/verify')}">
+                                    <img class="verifyimg reloadverify" alt="点击切换" src="{:U('Login/verify')}">
                                 </div>
                             </if>
                         </div>
                         <div class="login_btn_panel">
                             <button class="login-btn" type="submit">
-                                <span class="in"><i class="icon-loading"></i>{:L('LOGIN_SUBMIT_LOADING')}</span>
-                                <span class="on">{:L('LOGIN_SUBMIT')}</span>
+                                <span class="in"><i class="icon-loading"></i>登录中..</span>
+                                <span class="on">登 录</span>
                             </button>
                             <div class="check-tips"></div>
                         </div>
