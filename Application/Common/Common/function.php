@@ -315,3 +315,11 @@ function tree_to_list($tree, $child = '_child', $order = 'id', &$list = array())
     }
     return $list;
 }
+
+/**
+ * 获取登录用户 ID
+ */
+function get_uid()
+{
+    return is_login();
+}

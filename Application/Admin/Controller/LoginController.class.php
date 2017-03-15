@@ -14,11 +14,6 @@ class LoginController extends Controller
      */
     public function _initialize()
     {
-        // 判断是否已经登录
-        if (is_login()) {
-            $this->redirect('Index/index');
-        }
-
         $this->users_db = D('Common/Users');
     }
 
@@ -55,9 +50,32 @@ class LoginController extends Controller
                 $this->error($this->getErrorMsg($user),U('Login/login',true));
             }
         } else {
-            $this->assign('meta_title',C('WEB_SITE_NAME'));
-            $this->display();
+            if(is_login()){
+                $this->redirect('Index/index');
+            }else{
+                /* 读取数据库中的配置 */
+                $config =   S('DB_CONFIG_DATA');
+                if(!$config){
+                    $config =   D('Config')->lists();
+                    S('DB_CONFIG_DATA',$config);
+                }
+                C($config); //添加配置
+
+                $this->assign('meta_title',C('WEB_SITE_NAME'));
+                $this->display();
+            }
         }
+    }
+
+    /**
+     * 退出登录
+     */
+    public function logout(){
+        if(is_login()){
+            $this->users_db->logout();
+            session('[destroy]');
+        }
+        $this->redirect('login');
     }
 
     /**

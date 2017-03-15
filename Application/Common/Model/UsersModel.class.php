@@ -176,4 +176,18 @@ class UsersModel extends Model{
         );
         $this->save($data);
     }
+
+    /**
+     * 注销当前用户
+     * @return void
+     */
+    public function logout()
+    {
+        session('_AUTH_LIST_' . get_uid() . '1', null);
+        session('_AUTH_LIST_' . get_uid() . '2', null);
+        session('user_auth', null);
+        session('user_auth_sign', null);
+
+        cookie('OX_LOGGED_USER', NULL);
+    }
 }
