@@ -15,7 +15,7 @@ class LoginController extends Controller
     public function _initialize()
     {
         // 判断是否已经登录
-        if (UID) {
+        if (is_login()) {
             $this->redirect('Index/index');
         }
 
@@ -46,8 +46,8 @@ class LoginController extends Controller
                     'type'            => $user['type'],
                 );
 
-                session('admin_user_auth', $auth);
-                session('admin_user_auth_sign', data_auth_sign($auth));
+                session('user_auth', $auth);
+                session('user_auth_sign', data_auth_sign($auth));
 
                 // 登录成功，跳转页面
                 $this->success('登录成功！', U('Index/index'));
@@ -55,6 +55,7 @@ class LoginController extends Controller
                 $this->error($this->getErrorMsg($user),U('Login/login',true));
             }
         } else {
+            $this->assign('meta_title',C('WEB_SITE_NAME'));
             $this->display();
         }
     }

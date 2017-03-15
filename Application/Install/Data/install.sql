@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50711
 File Encoding         : 65001
 
-Date: 2017-03-09 11:03:05
+Date: 2017-03-15 15:49:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -84,7 +84,11 @@ CREATE TABLE `albert_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+
+-- ----------------------------
+-- Records of albert_action_log
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for albert_auth_group
@@ -178,13 +182,13 @@ CREATE TABLE `albert_config` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
-  `value` text NOT NULL COMMENT '配置值',
+  `value` text COMMENT '配置值',
   `sort` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`group`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of albert_config
@@ -192,7 +196,12 @@ CREATE TABLE `albert_config` (
 INSERT INTO `albert_config` VALUES ('1', '_USERCONFIG_USERNAME_MIN_LENGTH', '0', '', '0', '', null, '1484128566', '1484128566', '1', '2', '0');
 INSERT INTO `albert_config` VALUES ('2', '_USERCONFIG_USERNAME_MAX_LENGTH', '0', '', '0', '', null, '1484128566', '1484128566', '1', '32', '0');
 INSERT INTO `albert_config` VALUES ('3', 'USER_NAME_BAOLIU', '1', '保留用户名和昵称', '3', '', '禁止注册用户名和昵称，包含这些即无法注册,用\" , \"号隔开，用户只能是英文，下划线_，数字等', '1388845937', '1388845937', '1', '管理员,测试,admin,垃圾', '0');
-INSERT INTO `albert_config` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1378898976', '1', '1', '11');
+INSERT INTO `albert_config` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0：关闭\r\n1：开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1378898976', '1', '1', '11');
+INSERT INTO `albert_config` VALUES ('5', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165454', '1', null, '27');
+INSERT INTO `albert_config` VALUES ('6', 'ALLOW_VISIT', '3', '不受限控制器方法', '0', '', null, '1386644047', '1386644047', '1', '0:article/draftbox\r\n1:article/mydocument\r\n2:Category/tree\r\n3:Index/verify\r\n4:file/upload\r\n5:file/download\r\n6:user/updatePassword\r\n7:user/updateNickname\r\n8:user/submitPassword\r\n9:user/submitNickname\r\n10:file/uploadpicture', '2');
+INSERT INTO `albert_config` VALUES ('7', 'DENY_VISIT', '3', '超管专限控制器方法', '0', '', '仅超级管理员可访问的控制器方法', '1386644141', '1386644141', '1', '0:Addons/addhook\r\n1:Addons/edithook\r\n2:Addons/delhook\r\n3:Addons/updateHook\r\n4:Admin/getMenus\r\n5:Admin/recordList\r\n6:AuthManager/updateRules\r\n7:AuthManager/tree', '3');
+INSERT INTO `albert_config` VALUES ('8', 'DEVELOP_MODE', '4', '开启开发者模式', '4', '0：关闭\r\n1：开启', '是否开启开发者模式', '1383105995', '1383105995', '1', '1', '26');
+INSERT INTO `albert_config` VALUES ('9', 'WEB_SITE_NAME', '2', '站点名称', '4', '', '用于后端 title 展示', '1383105995', '1383105995', '1', 'Albert', '0');
 
 -- ----------------------------
 -- Table structure for albert_district
@@ -3801,11 +3810,17 @@ CREATE TABLE `albert_menu` (
   `module` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of albert_menu
 -- ----------------------------
+INSERT INTO `albert_menu` VALUES ('1', '首页', '0', '1', 'Index/index', '0', '', '', '0', 'home', 'admin');
+INSERT INTO `albert_menu` VALUES ('2', '用户', '0', '2', 'User/index', '0', '', '', '0', 'user', 'admin');
+INSERT INTO `albert_menu` VALUES ('3', '运营', '0', '3', 'Operation/index', '0', '', '', '0', 'laptop', 'admin');
+INSERT INTO `albert_menu` VALUES ('4', '安全', '0', '4', 'ActionLimit/limitList', '0', '', '', '0', 'shield', 'admin');
+INSERT INTO `albert_menu` VALUES ('5', '系统', '0', '5', 'Config/group', '0', '', '', '0', 'windows', 'admin');
+INSERT INTO `albert_menu` VALUES ('6', '扩展', '0', '5', 'Module/lists', '0', '', '', '0', 'cloud', 'admin');
 
 -- ----------------------------
 -- Table structure for albert_module
@@ -3879,7 +3894,7 @@ CREATE TABLE `albert_role` (
 -- ----------------------------
 -- Records of albert_role
 -- ----------------------------
-INSERT INTO `albert_role` VALUES ('1', '0', 'default', '普通用户', '普通用户', '1', '0', '0', '0', '1', '1488942727', '1488942727');
+INSERT INTO `albert_role` VALUES ('1', '0', 'default', '普通用户', '普通用户', '1', '0', '0', '0', '1', '1489047532', '1489047532');
 
 -- ----------------------------
 -- Table structure for albert_seo_rule
@@ -3929,6 +3944,7 @@ CREATE TABLE `albert_users` (
   KEY `username` (`username`),
   KEY `nickname` (`nickname`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户表';
+
 
 -- ----------------------------
 -- Table structure for albert_user_role

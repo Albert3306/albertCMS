@@ -1,0 +1,66 @@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var config = {
+            '.chosen-select' : {search_contains: true, drop_width: 400,no_results_text:"找不到匹配的选项"},
+            '.report-select' : {search_contains: true, width: '400px',no_results_text:"找不到匹配的选项"}
+        };
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+    });
+</script>
+
+<script src="__ZUI__/lib/chosen/chosen.js"></script>
+<link href="__ZUI__/lib/chosen/chosen.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__STATIC__/think.js"></script>
+
+<!--zui-->
+<script type="text/javascript" src="__JS__/common.js"></script>
+<script type="text/javascript" src="__JS__/com/com.toast.class.js"></script>
+<script type="text/javascript" src="__ZUI__/js/zui.js"></script>
+<script type="text/javascript" src="__ZUI__/lib/migrate1.2/zui.migrate1.2.js"></script>
+<!--zui end-->
+<link rel="stylesheet" type="text/css" href="__JS__/kanban/kanban.css" media="all">
+<script type="text/javascript" src="__JS__/kanban/kanban.js"></script>
+<script type="text/javascript">
+    +function () {
+        var $window = $(window), $subnav = $("#subnav"), url;
+        $window.resize(function () {
+            $("#main").css("min-height", $window.height() - 130);
+        }).resize();
+
+        // 导航栏超出窗口高度后的模拟滚动条
+        var sHeight = $(".sidebar").height();
+        var subHeight = $(".subnav").height();
+        var diff = subHeight - sHeight; //250
+        var sub = $(".subnav");
+        if (diff > 0) {
+            $(window).mousewheel(function (event, delta) {
+                if (delta > 0) {
+                    if (parseInt(sub.css('marginTop')) > -10) {
+                        sub.css('marginTop', '0px');
+                    } else {
+                        sub.css('marginTop', '+=' + 10);
+                    }
+                } else {
+                    if (parseInt(sub.css('marginTop')) < '-' + (diff - 10)) {
+                        sub.css('marginTop', '-' + (diff - 10));
+                    } else {
+                        sub.css('marginTop', '-=' + 10);
+                    }
+                }
+            });
+        }
+    }();
+    highlight_subnav("{:U('Admin'.'/'.CONTROLLER_NAME.'/'.ACTION_NAME,$_GET)}")
+</script>
+<block name="js"></block>
+<block name="modal">
+</block>

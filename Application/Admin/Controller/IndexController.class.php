@@ -11,6 +11,6 @@ class IndexController extends AdminController
      */
     public function index()
     {
-        echo 1111;
+        $this->display();
     }
 }

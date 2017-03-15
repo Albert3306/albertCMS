@@ -1,0 +1,24 @@
+<meta charset="UTF-8">
+<title>{$meta_title}</title>
+<link href="/favicon.ico" type="image/x-icon" rel="shortcut icon">
+<link rel="stylesheet" type="text/css" href="__ZUI__/css/zui.css" media="all">
+<link rel="stylesheet" type="text/css" href="__CSS__/admin.css" media="all">
+<link rel="stylesheet" type="text/css" href="__CSS__/ext.css" media="all">
+<link rel="stylesheet" type="text/css" href="__CSS__/module.css">
+<link rel="stylesheet" type="text/css" href="__CSS__/style.css" media="all">
+
+<script type="text/javascript" src="__PUBLIC__/js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="__JS__/jquery.mousewheel.js"></script>
+<block name="style"></block>
+<script type="text/javascript">
+    var ThinkPHP = window.Think = {
+        "ROOT": "__ROOT__", //当前网站地址
+        "APP": "__APP__", //当前项目地址
+        "PUBLIC": "__PUBLIC__", //项目公共目录地址
+        "DEEP": "{:C('URL_PATHINFO_DEPR')}", //PATHINF O 分割符
+        "MODEL": ["{:C('URL_MODEL')}", "{:C('URL_CASE_INSENSITIVE')}", "{:C('URL_HTML_SUFFIX')}"],
+        "VAR": ["{:C('VAR_MODULE')}", "{:C('VAR_CONTROLLER')}", "{:C('VAR_ACTION')}"],
+        'URL_MODEL': "{:C('URL_MODEL')}"
+    }
+    var _ROOT_="__ROOT__";
+</script>

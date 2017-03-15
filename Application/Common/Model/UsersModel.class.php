@@ -6,7 +6,6 @@ use Think\Model;
  * 用户模型
  */
 class UsersModel extends Model{
-    /* 用户模型自动验证 */
     protected $_validate = array(
         /* 验证用户名 */
         array('username', 'checkUsernameLength', -1, self::EXISTS_VALIDATE,'callback'), // 用户名长度不合法
@@ -29,7 +28,6 @@ class UsersModel extends Model{
         array('mobile', '', -11, self::EXISTS_VALIDATE, 'unique'), // 手机号被占用
     );
 
-    /* 用户模型自动完成 */
     protected $_auto = array(
         array('password', 'get_password_md5', self::MODEL_BOTH, 'function', UC_AUTH_KEY),
         array('reg_time', NOW_TIME, self::MODEL_INSERT),

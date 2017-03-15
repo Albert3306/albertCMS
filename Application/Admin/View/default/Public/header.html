@@ -1,0 +1,99 @@
+<div class="panel-header">
+    <nav class="navbar navbar-inverse admin-bar" role="navigation">
+        <div class="navbar-header">
+            <a href="{:U('Index/index')}" class="navbar-brand">{$meta_title}</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-example">
+            <ul id="nav_bar" class="nav navbar-nav">
+                <volist name="__MENU__.main" id="menu">
+                    <neq name="menu.hide" value="1">
+                        <li data-id="{$menu.id}" class="{$menu.class|default=''}">
+                            <a href="{$menu.url|U}">
+                                <neq name="menu.icon" value="">
+                                    <i class="icon-{$menu.icon}"></i>&nbsp;
+                                </neq>
+                                {$menu.title}
+                            </a>
+                        </li>
+                    </neq>
+                </volist>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="javascript:;"  onclick="clear_cache()"><i class="icon-trash"></i> 清空缓存</a></li>
+                <li><a target="_blank" href="/"><i class="icon-copy"></i> 打开前台</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i>
+                        {:session('user_auth.username')} <b
+                                class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{:U('User/updatePassword')}">修改密码</a></li>
+                        <li><a href="{:U('User/updateNickname')}">修改昵称</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{:U('Login/logout')}">退出</a></li>
+                    </ul>
+                </li>
+                <script>
+                    function clear_cache() {
+                        var msg = new $.zui.Messager("清理缓存成功", {placement: 'bottom'});
+                        $.get('__ROOT__/cc.php');
+                        msg.show()
+                    }
+                </script>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="admin-title">
+    </div>
+</div>
+
+<div class="panel-menu">
+    <ul class="nav nav-primary nav-stacked">
+        <volist name="__MODULE_MENU__" id="v">
+            <if condition="$v['is_setup'] AND $v['admin_entry']">
+                <li>
+                    <a  href="{:U($v['admin_entry'])}" title="{$v.alias|text}" class="text-ellipsis text-center">
+                        <i class="icon-{$v['icon']}"></i><br/>{$v.alias}
+                    </a>
+                </li>
+            </if>
+        </volist>
+    </ul>
+</div>
+
+<div class="panel-main" style="float:left;">
+    <div class="">
+        <div class="clearfix " style="">
+            <notempty name="__MENU__.child">
+                <div class="sub_menu_wrapper" style="background: rgb(245, 246, 247); bottom: -10px;top: 0;position: absolute;width: 180px;overflow: auto">
+                    <div>
+                        <nav id="sub_menu" class="menu" data-toggle="menu">
+                            <ul class="nav nav-primary">
+                                <block name="sidebar">
+                                    <volist name="__MENU__.child" id="sub_menu">
+                                        <notempty name="sub_menu">
+                                            <li class="show">
+                                                <a href="#">
+                                                    <notempty name="key">{$key}</notempty>
+                                                </a>
+                                                <ul class="nav">
+                                                    <volist name="sub_menu" id="menu">
+                                                        <li>
+                                                            <a href="{$menu.url|U}">{$menu.title}</a>
+                                                        </li>
+                                                    </volist>
+                                                </ul>
+                                            </li>
+                                        </notempty>
+                                    </volist>
+                                </block>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </notempty>
+
+            <div id="main-content" style="padding:10px;padding-left:0;padding-bottom:10px;left: 180px;position:absolute;right: 0;bottom: 0;top: 0;overflow: auto">
+                <div id="main" style="overflow-y:auto;overflow-x:hidden;">
+                    <div class="admin-main-container">
+                        <block name="body"></block>
