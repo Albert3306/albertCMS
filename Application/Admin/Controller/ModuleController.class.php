@@ -23,7 +23,7 @@ class ModuleController extends AdminController
      */
     public function lists()
     {
-        $aType = I('type', 'installed', 'text');
+        $aType = I('type', 'all', 'op_t');
         $this->assign('type', $aType);
 
         /* 刷新模块列表时清空缓存 */
