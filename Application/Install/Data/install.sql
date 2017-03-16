@@ -31,13 +31,14 @@ CREATE TABLE `albert_action` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `module` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统行为表';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统行为表';
 
 -- ----------------------------
 -- Records of albert_action
 -- ----------------------------
 INSERT INTO `albert_action` VALUES ('1', 'reg', '用户注册', '用户注册', '', '', '1', '1', '1426070545', '');
 INSERT INTO `albert_action` VALUES ('2', 'input_password', '输入密码', '记录输入密码的次数。', '', '', '1', '1', '1426122119', '');
+INSERT INTO `albert_action` VALUES ('3', 'user_login', '用户登录', 'a:1:{i:0;a:5:{s:5:"table";s:6:"users";s:5:"field";s:1:"1";s:4:"rule";s:2:"10";s:5:"cycle";s:2:"24";s:3:"max";s:1:"1";}}', '[user|get_nickname]在[time|time_format]登录了账号', '', '1', '1', '1426122119', '');
 
 -- ----------------------------
 -- Table structure for albert_action_limit

@@ -169,7 +169,6 @@ function action_log($action = null, $model = null, $record_id = null, $user_id =
         $data['remark'] = '操作url：' . $_SERVER['REQUEST_URI'];
     }
 
-
     $log_id = M('ActionLog')->add($data);
 }
 
@@ -192,6 +191,28 @@ function get_administrator()
 {
     $admin_uids = explode(',', C('USER_ADMINISTRATOR')); //调整验证机制，支持多管理员，用,分隔
     return $admin_uids;
+}
+
+/**
+ * 根据用户ID获取用户昵称
+ * @param  integer $uid 用户ID
+ * @return string       用户昵称
+ */
+function get_nickname($uid = null)
+{
+    $nickname = D('Users')->getNickname($uid);
+    return $nickname;
+}
+
+/**
+ * 时间戳格式化
+ * @param int $time
+ * @return string 完整的时间显示
+ */
+function time_format($time = NULL, $format = 'Y-m-d H:i')
+{
+    $time = $time === NULL ? NOW_TIME : intval($time);
+    return date($format, $time);
 }
 
 /**
@@ -322,4 +343,29 @@ function tree_to_list($tree, $child = '_child', $order = 'id', &$list = array())
 function get_uid()
 {
     return is_login();
+}
+
+/**
+ * 剥去字符串中的 HTML、XML 以及 PHP 的标签
+ * @param  string $str            需要剥去标签的字符串
+ * @param  string $allowable_tags 规定允许的标签
+ */
+function real_strip_tags($str, $allowable_tags = "")
+{
+    return strip_tags($str, $allowable_tags);
+}
+
+/**
+ * t函数用于过滤标签，输出没有html的干净的文本
+ * @param string text 文本内容
+ * @return string 处理后内容
+ */
+function op_t($text, $addslanshes = false)
+{
+    $text = nl2br($text);
+    $text = real_strip_tags($text);
+    if ($addslanshes)
+        $text = addslashes($text);
+    $text = trim($text);
+    return $text;
 }

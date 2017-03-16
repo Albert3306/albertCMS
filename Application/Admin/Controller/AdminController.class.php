@@ -226,7 +226,7 @@ class AdminController extends Controller
      */
     public function getModules()
     {
-        $modules=D('Module')->getAll();
+        $modules = D('Common/Module')->getAll();
         foreach($modules as $key=> &$v){
             $rule = strtolower($v['admin_entry']);
             if (!$this->checkRule($rule, array('in', '1,2'))) {

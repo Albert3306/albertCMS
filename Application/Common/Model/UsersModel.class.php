@@ -152,6 +152,7 @@ class UsersModel extends Model{
             /* 验证用户密码 */
             if (get_password_md5($password, C('DATA_AUTH_KEY')) === $user['password']) {
                 $this->updateLogin($user['id']); // 更新用户登录信息
+
                 return $user; // 登录成功，返回用户数据
             } else {
                 action_log('input_password','users',$user['id'],$user['id']);
@@ -175,6 +176,9 @@ class UsersModel extends Model{
             'last_login_ip' => get_client_ip(1),
         );
         $this->save($data);
+
+        //记录行为
+        action_log('user_login', 'users', $uid, $uid);
     }
 
     /**
@@ -189,5 +193,16 @@ class UsersModel extends Model{
         session('user_auth_sign', null);
 
         cookie('OX_LOGGED_USER', NULL);
+    }
+
+    /**
+     * 根据 ID 获取昵称
+     * @param  integer $uid 用户 ID
+     */
+    public function getNickname($uid)
+    {
+        $nickname = $this->where('id='.$uid)->getfield('nickname');
+
+        return $nickname;
     }
 }
