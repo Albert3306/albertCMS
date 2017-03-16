@@ -26,8 +26,6 @@ class ModuleController extends AdminController
         $aType = I('type', 'installed', 'text');
         $this->assign('type', $aType);
 
-        $listBuilder = new AdminListBuilder();
-
         /* 刷新模块列表时清空缓存 */
         $aRefresh = I('get.refresh', 0, 'intval');
         if ($aRefresh == 1) {

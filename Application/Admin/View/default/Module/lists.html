@@ -1,0 +1,83 @@
+<extend name="Base/common"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>模块管理</h2>
+    </div>
+    <div class="with-padding clearfix" style="">
+        <ul class="pull-left nav nav-secondary">
+            <li id="type_all"><a href="{:U('lists',array('type'=>'all'))}">全部</a></li>
+            <li id="type_installed"><a href="{:U('lists',array('type'=>'installed'))}">已安装</a></li>
+            <li id="type_uninstalled"><a href="{:U('lists',array('type'=>'uninstalled'))}">未安装</a></li>
+            <li id="type_core"><a href="{:U('lists',array('type'=>'core'))}">系统模块</a></li>
+            <script>
+                $('#type_{$type}').addClass('active');
+            </script>
+        </ul>
+        <div class="pull-right">
+         <a href="{:U('Module/lists',array_merge($_GET,array('refresh'=>1)))}" class="btn btn-danger"><i class="icon-undo"></i>
+            重置全部（模块信息不同步的时候使用）</a>&nbsp;
+        </div>
+    </div>
+    <div class="with-padding">
+        <ul class="module-list">
+            <volist name="modules" id="vo">
+
+                <li class="clearfix">
+                    <div class="cover-wrapper">
+                        <empty name="vo.version_info.goods.cover_url">
+                            <div class="cover-icon">
+                                <i class="icon-{$vo.icon}"></i>
+                            </div>
+                            <else/>
+                            <img class="cover"
+                                 src="{$vo.version_info.goods.cover_url}"/>
+                        </empty>
+                    </div>
+                    <div class="content-wrapper">
+                        <div class="title">
+                            <a href="{:U('edit?', array('name' => $vo['name']))}">{$vo.alias} <span class="text-muted">{$vo.name}</span></a>
+                            <div class="pull-right">
+                                <empty name="vo.token">
+                                    <span class="label label-info">{$vo.version}</span>
+                                    <else/>
+                                    <span class="label label-info">{$vo.version_info.title}</span>
+                                </empty>
+                                <empty name="vo.update_list">
+                                    <else/>
+                                    <a style="text-decoration: none" href="javascript:void(0)" data-role="update_btn"
+                                       data-type="ajax"
+                                       data-url="{:U('Cloud/getVersionList',array('token'=>$vo['token']))}"
+                                       data-toggle="modal" data-title={:L("_A_NEW_VERSION_CAN_BE_UPDATED_WITH_DOUBLE_")}><span class=" label label-success ">有新版{$vo.update_list.0.title}</span></a>
+                                    <script>$(function () {
+                                        $('[data-role="update_btn"]').tooltip('show');
+                                    });
+                                    </script>
+                                </empty>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-muted text-ellipsis">{$vo.summary}</p>
+                        </div>
+                        <div>{:L("_DEVELOPER_")}{:L('_COLON_')} <a style="color: #666">{$vo.developer}</a></div>                        <div class="clearfix bottom-btns">
+                            <div class="pull-left">
+
+                                <a class="btn btn-default"
+                                   href="{:U('edit?', array('name' => $vo['name']))}">编辑</a>
+                                <if condition="$vo['can_uninstall'] ">
+                                    <if condition="$vo['is_setup']">
+                                        <a class="btn btn-danger"
+                                           href="{:U('uninstall', array('id' => $vo['id']))}">卸载</a>
+                                        <else/>
+                                        <a class="btn btn-info"
+                                           href="{:U('install', array('name' => $vo['name']))}">安装</a>
+                                    </if>
+                                </if>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </volist>
+        </ul>
+    </div>
+</block>
