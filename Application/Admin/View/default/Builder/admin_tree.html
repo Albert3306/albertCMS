@@ -42,7 +42,7 @@
     </div>
 
 </block>
-<block name="script">
+<block name="js">
     <script type="text/javascript">
         (function($){
             /* 分类展开收起 */
@@ -63,36 +63,35 @@
             $(".category dd dd .add-sub").remove();
 
             /* 实时更新分类信息 */
-            $(".category")
-                    .on("submit", "form", function(){
-                        var self = $(this);
-                        $.post(
-                                self.attr("action"),
-                                self.serialize(),
-                                function(data){
-                                    /* 提示信息 */
-                                    var name = data.status ? "success" : "error", msg;
-                                    msg = self.find(".msg").addClass(name).text(data.info)
-                                            .css("display", "inline-block");
-                                    setTimeout(function(){
-                                        msg.fadeOut(function(){
-                                            msg.text("").removeClass(name);
-                                        });
-                                    }, 1000);
-                                },
-                                "json"
-                        );
-                        return false;
-                    })
-                    .on("focus","input",function(){
-                        $(this).data('param',$(this).closest("form").serialize());
+            $(".category").on("submit", "form", function(){
+                var self = $(this);
+                $.post(
+                        self.attr("action"),
+                        self.serialize(),
+                        function(data){
+                            /* 提示信息 */
+                            var name = data.status ? "success" : "error", msg;
+                            msg = self.find(".msg").addClass(name).text(data.info)
+                                    .css("display", "inline-block");
+                            setTimeout(function(){
+                                msg.fadeOut(function(){
+                                    msg.text("").removeClass(name);
+                                });
+                            }, 1000);
+                        },
+                        "json"
+                );
+                return false;
+            })
+            .on("focus","input",function(){
+                $(this).data('param',$(this).closest("form").serialize());
 
-                    })
-                    .on("blur", "input", function(){
-                        if($(this).data('param')!=$(this).closest("form").serialize()){
-                            $(this).closest("form").submit();
-                        }
-                    });
+            })
+            .on("blur", "input", function(){
+                if($(this).data('param')!=$(this).closest("form").serialize()){
+                    $(this).closest("form").submit();
+                }
+            });
         })(jQuery);
     </script>
 </block>

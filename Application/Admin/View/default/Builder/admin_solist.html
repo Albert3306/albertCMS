@@ -6,23 +6,16 @@
     <link href="/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
 
     <!--zui-->
-    <link rel="stylesheet" type="text/css" href="/Application/Admin/Static/zui/css/zui.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/Application/Admin/Static/css/admin.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/Application/Admin/Static/css/ext.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__ZUI__/css/zui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/admin.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/ext.css" media="all">
     <!--zui end-->
 
-    <!--
-        <link rel="stylesheet" type="text/css" href="/Application/Admin/Static/css/base.css" media="all">
-        <link rel="stylesheet" type="text/css" href="/Application/Admin/Static/css/common.css" media="all"-->
-    <link rel="stylesheet" type="text/css" href="/Application/Admin/Static/css/module.css">
-    <link rel="stylesheet" type="text/css" href="/Application/Admin/Static/css/style.css" media="all">
-    <!--<link rel="stylesheet" type="text/css" href="/Application/Admin/Static/css/.css" media="all">-->
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="/Public/static/jquery-1.10.2.min.js"></script>
-    <![endif]--><!--[if gte IE 9]><!-->
-    <script type="text/javascript" src="/Public/js/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="/Application/Admin/Static/js/jquery.mousewheel.js"></script>
-    <!--<![endif]-->
+    <link rel="stylesheet" type="text/css" href="__CSS__/module.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/style.css" media="all">
+
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.mousewheel.js"></script>
 
     <script type="text/javascript">
         var ThinkPHP = window.Think = {
@@ -37,7 +30,7 @@
     </script>
 </head>
 <block name="body">
-    <link type="text/css" rel="stylesheet" href="__PUBLIC__/Core/js/ext/magnific/magnific-popup.css"/>
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/js/ext/magnific/magnific-popup.css"/>
 
     <php>
         foreach ($searches as $search) {
@@ -110,7 +103,7 @@
         </table>
     </div>
 	<div class="with-padding">
-   {:L("_SELECT_ID_")}：<input type="text" name="txt" id="txt">
+    选择的ID：<input type="text" name="txt" id="txt">
 	</form><input type="button" value="确定" onclick="foo();"> 
 
     </div>
@@ -220,5 +213,5 @@
             });
         });
     </script>
-    <script type="text/javascript" src="__PUBLIC__/Core/js/ext/magnific/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/ext/magnific/jquery.magnific-popup.min.js"></script>
 </block>

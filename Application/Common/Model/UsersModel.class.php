@@ -9,8 +9,8 @@ class UsersModel extends Model{
     protected $_validate = array(
         /* 验证用户名 */
         array('username', 'checkUsernameLength', -1, self::EXISTS_VALIDATE,'callback'), // 用户名长度不合法
-        array('username', 'checkDenyMember', -2, self::EXISTS_VALIDATE, 'callback'), // 用户名禁止注册
-        array('username', 'checkUsername', -20, self::EXISTS_VALIDATE, 'callback'),
+        array('username', 'checkDenyUsername', -2, self::EXISTS_VALIDATE, 'callback'), // 用户名禁止注册
+        array('username', 'checkUsername', -12, self::EXISTS_VALIDATE, 'callback'),
         array('username', '', -3, self::EXISTS_VALIDATE, 'unique'), // 用户名被占用
 
         /* 验证密码 */
@@ -26,10 +26,19 @@ class UsersModel extends Model{
         array('mobile', '/^(1[3|4|5|8])[0-9]{9}$/', -9, self::EXISTS_VALIDATE), // 手机格式不正确 TODO:
         array('mobile', 'checkDenyMobile', -10, self::EXISTS_VALIDATE, 'callback'), // 手机禁止注册
         array('mobile', '', -11, self::EXISTS_VALIDATE, 'unique'), // 手机号被占用
+
+        /* 验证签名 */
+        array('signature', '0,100', -1, self::EXISTS_VALIDATE, 'length'),
+
+        /* 验证昵称 */
+        array('nickname', 'checkNicknameLength', -33, self::EXISTS_VALIDATE, 'callback'), // 昵称长度不合法
+        array('nickname', 'checkDenyNickname', -31, self::EXISTS_VALIDATE, 'callback'), // 昵称禁止注册
+        array('nickname', 'checkNickname', -32, self::EXISTS_VALIDATE, 'callback'),
+        array('nickname', '', -30, self::EXISTS_VALIDATE, 'unique'), // 昵称被占用
     );
 
     protected $_auto = array(
-        array('password', 'get_password_md5', self::MODEL_BOTH, 'function', UC_AUTH_KEY),
+        array('password', 'autoPassworkMd5', self::MODEL_BOTH, 'callback'),
         array('reg_time', NOW_TIME, self::MODEL_INSERT),
         array('reg_ip', 'get_client_ip', self::MODEL_INSERT, 'function', 1),
         array('update_time', NOW_TIME),
@@ -37,10 +46,9 @@ class UsersModel extends Model{
     );
 
     /**
-     * 验证用户名长度
-     * @param $username
-     * @return bool
-     * @author 郑钟良<zzl@ourstu.com>
+     * 检测用户名长度
+     * @param  string $username 用户名
+     * @return boolean          ture - 未禁用，false - 禁止注册
      */
     protected function checkUsernameLength($username)
     {
@@ -56,13 +64,13 @@ class UsersModel extends Model{
      * @param  string $username 用户名
      * @return boolean          ture - 未禁用，false - 禁止注册
      */
-    protected function checkDenyMember($username)
+    protected function checkDenyUsername($username)
     {
-        $denyName=M("Config")->where(array('name' => 'USER_NAME_BAOLIU'))->getField('value');
-        if($denyName!=''){
+        $denyName = M("Config")->where(array('name' => 'USER_NAME_BAOLIU'))->getField('value');
+        if ($denyName!='') {
             $denyName=explode(',',$denyName);
-            foreach($denyName as $val){
-                if(!is_bool(strpos($username,$val))){
+            foreach ($denyName as $val) {
+                if (!is_bool(strpos($username,$val))) {
                     return false;
                 }
             }
@@ -71,15 +79,10 @@ class UsersModel extends Model{
     }
 
     /**
-     * 检测邮箱是不是被禁止注册
-     * @param  string $email 邮箱
-     * @return boolean       ture - 未禁用，false - 禁止注册
+     * 检测用户名是否合格
+     * @param  string $username 用户名
+     * @return boolean          ture - 未禁用，false - 禁止注册
      */
-    protected function checkDenyEmail($email)
-    {
-        return true; // TODO: 暂不限制，下一个版本完善
-    }
-
     protected function checkUsername($username)
     {
         // 如果用户名中有空格，不允许注册
@@ -95,6 +98,16 @@ class UsersModel extends Model{
     }
 
     /**
+     * 检测邮箱是不是被禁止注册
+     * @param  string $email 邮箱
+     * @return boolean       ture - 未禁用，false - 禁止注册
+     */
+    protected function checkDenyEmail($email)
+    {
+        return true; // TODO: 暂不限制，下一个版本完善
+    }
+
+    /**
      * 检测手机是不是被禁止注册
      * @param  string $mobile 手机
      * @return boolean        ture - 未禁用，false - 禁止注册
@@ -102,6 +115,67 @@ class UsersModel extends Model{
     protected function checkDenyMobile($mobile)
     {
         return true; // TODO: 暂不限制，下一个版本完善
+    }
+
+    /**
+     * 检测昵称长度
+     * @param  string $nickname 昵称
+     * @return boolean          ture - 未禁用，false - 禁止注册
+     */
+    protected function checkNicknameLength($nickname)
+    {
+        $length = mb_strlen($nickname, 'utf-8'); // 当前数据长度
+        if ($length < modC('NICKNAME_MIN_LENGTH',2,'USERCONFIG') || $length > modC('NICKNAME_MAX_LENGTH',32,'USERCONFIG')) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 检测用户名是否被禁止注册
+     * @param  string $nickname 昵称
+     * @return boolean          ture - 未禁用，false - 禁止注册
+     */
+    protected function checkDenyNickname($nickname)
+    {
+        $denyName = M("Config")->where(array('name' => 'USER_NAME_BAOLIU'))->getField('value');
+        if ($denyName != '') {
+            $denyName = explode(',', $denyName);
+            foreach ($denyName as $val) {
+                if (!is_bool(strpos($nickname, $val))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 检测检测昵称是否合格
+     * @param  string $nickname 昵称
+     * @return boolean          ture - 未禁用，false - 禁止注册
+     */
+    protected function checkNickname($nickname)
+    {
+        //如果用户名中有空格，不允许注册
+        if (strpos($nickname, ' ') !== false) {
+            return false;
+        }
+        preg_match('/^(?!_|\s\')[A-Za-z0-9_\x80-\xff\s\']+$/', $nickname, $result);
+
+        if (!$result) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 自动完成密码 MD5 加密
+     * @param  string $password 需要加密的密码
+     */
+    protected function autoPassworkMd5($password)
+    {
+        return get_password_md5($password,C('DATA_AUTH_KEY'));
     }
 
     /**
@@ -204,5 +278,48 @@ class UsersModel extends Model{
         $nickname = $this->where('id='.$uid)->getfield('nickname');
 
         return $nickname;
+    }
+
+    /**
+     * 更新用户信息
+     * @param int    $uid      用户 ID
+     * @param string $password 密码，用来验证
+     * @param array  $data     修改的字段数组
+     * @return true            修改成功，false 修改失败
+     */
+    public function updateUserFields($uid, $password, $data)
+    {
+        if (empty($uid) || empty($password) || empty($data)) {
+            $this->error = '参数错误！25';
+            return false;
+        }
+
+        //更新前检查用户密码
+        if (!$this->verifyUser($uid, $password)) {
+            $this->error = '验证出错：密码不正确！';
+            return false;
+        }
+
+        //更新用户信息
+        $data = $this->create($data, 2); //指定此处为更新数据
+        if ($data) {
+            return $this->where(array('id' => $uid))->save($data);
+        }
+        return false;
+    }
+
+    /**
+     * 验证用户密码
+     * @param int     $uid         用户id
+     * @param string  $password_in 密码
+     * @return boolean             true 验证成功，false 验证失败
+     */
+    public function verifyUser($uid, $password_in)
+    {
+        $password = $this->getFieldById($uid, 'password');
+        if (get_password_md5($password_in, C('DATA_AUTH_KEY')) === $password) {
+            return true;
+        }
+        return false;
     }
 }

@@ -7,6 +7,7 @@
 
 require_once(APP_PATH . '/Common/Common/user.php');
 require_once(APP_PATH . '/Common/Common/limit.php');
+require_once(APP_PATH . '/Common/Common/error.php');
 
 /**
  * 检测后端用户是否登录
@@ -118,7 +119,6 @@ function get_password_md5($str, $key = 'Albert')
  * @param int $record_id 触发行为的记录id
  * @param int $user_id 执行行为的用户id
  * @return boolean
- * @author huajie <banhuajie@163.com>
  */
 function action_log($action = null, $model = null, $record_id = null, $user_id = null)
 {

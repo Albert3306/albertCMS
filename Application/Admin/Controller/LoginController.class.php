@@ -47,7 +47,7 @@ class LoginController extends Controller
                 // 登录成功，跳转页面
                 $this->success('登录成功！', U('Index/index'));
             } else {
-                $this->error($this->getErrorMsg($user),U('Login/login',true));
+                $this->error(getErrorMsg($user),U('Login/login',true));
             }
         } else {
             if(is_login()){
@@ -84,33 +84,5 @@ class LoginController extends Controller
     public function verify()
     {
         verify();
-    }
-
-    /**
-     * 获取错误信息
-     * @param  integer $code   错误代号
-     * @param  string  $defaul 默认成功后的信息
-     */
-    public function getErrorMsg($code,$defaul = '操作成功！')
-    {
-        switch ($code) {
-            case 1:
-                $msg = $defaul;
-                break;
-
-            case 0:
-                $msg = '未知错误，请稍后再试！';
-                break;
-            
-            case -1:
-                $msg = '用户不存在或被禁用！';
-                break;
-            
-            case -2:
-                $msg = '密码错误，请重新输入！';
-                break;
-        }
-
-        return $msg;
     }
 }
