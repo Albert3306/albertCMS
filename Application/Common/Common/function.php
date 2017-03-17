@@ -369,3 +369,24 @@ function op_t($text, $addslanshes = false)
     $text = trim($text);
     return $text;
 }
+
+/**
+ * select返回的数组进行整数映射转换
+ * @param array $map 映射关系二维数组
+ * @return array
+ */
+function int_to_string(&$data, $map = array('status' => array(1 => '正常', -1 => '删除', 0 => '禁用', 2 => '未审核', 3 => '草稿')))
+{
+    if ($data === false || $data === null) {
+        return $data;
+    }
+    $data = (array)$data;
+    foreach ($data as $key => $row) {
+        foreach ($map as $col => $pair) {
+            if (isset($row[$col]) && isset($pair[$row[$col]])) {
+                $data[$key][$col . '_text'] = $pair[$row[$col]];
+            }
+        }
+    }
+    return $data;
+}

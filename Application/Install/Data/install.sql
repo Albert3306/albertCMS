@@ -38,7 +38,10 @@ CREATE TABLE `albert_action` (
 -- ----------------------------
 INSERT INTO `albert_action` VALUES ('1', 'reg', '用户注册', '用户注册', '', '', '1', '1', '1426070545', '');
 INSERT INTO `albert_action` VALUES ('2', 'input_password', '输入密码', '记录输入密码的次数。', '', '', '1', '1', '1426122119', '');
-INSERT INTO `albert_action` VALUES ('3', 'user_login', '用户登录', 'a:1:{i:0;a:5:{s:5:"table";s:6:"users";s:5:"field";s:1:"1";s:4:"rule";s:2:"10";s:5:"cycle";s:2:"24";s:3:"max";s:1:"1";}}', '[user|get_nickname]在[time|time_format]登录了账号', '', '1', '1', '1426122119', '');
+INSERT INTO `albert_action` VALUES ('3', 'user_login', '用户登录', 'a:1:{i:0;a:5:{s:5:\"table\";s:6:\"users\";s:5:\"field\";s:1:\"1\";s:4:\"rule\";s:2:\"10\";s:5:\"cycle\";s:2:\"24\";s:3:\"max\";s:1:\"1\";}}', '[user|get_nickname]在[time|time_format]登录了账号', '', '1', '1', '1426122119', '');
+INSERT INTO `albert_action` VALUES ('4', 'update_config', '更新配置', '新增或修改或删除配置', '', '', '1', '1', '1383294988', '');
+INSERT INTO `albert_action` VALUES ('5', 'update_channel', '更新导航', '新增或修改或删除导航', '', '', '1', '1', '1383296301', '');
+INSERT INTO `albert_action` VALUES ('6', 'update_menu', '更新菜单', '新增或修改或删除菜单', '', '', '1', '1', '1383296392', '');
 
 -- ----------------------------
 -- Table structure for albert_action_limit
@@ -203,6 +206,8 @@ INSERT INTO `albert_config` VALUES ('6', 'ALLOW_VISIT', '3', '不受限控制器
 INSERT INTO `albert_config` VALUES ('7', 'DENY_VISIT', '3', '超管专限控制器方法', '0', '', '仅超级管理员可访问的控制器方法', '1386644141', '1386644141', '1', '0:Addons/addhook\r\n1:Addons/edithook\r\n2:Addons/delhook\r\n3:Addons/updateHook\r\n4:Admin/getMenus\r\n5:Admin/recordList\r\n6:AuthManager/updateRules\r\n7:AuthManager/tree', '3');
 INSERT INTO `albert_config` VALUES ('8', 'DEVELOP_MODE', '4', '开启开发者模式', '4', '0：关闭\r\n1：开启', '是否开启开发者模式', '1383105995', '1383105995', '1', '1', '26');
 INSERT INTO `albert_config` VALUES ('9', 'WEB_SITE_NAME', '2', '站点名称', '4', '', '用于后端 title 展示', '1383105995', '1383105995', '1', 'Albert', '0');
+INSERT INTO `albert_config` VALUES ('10', 'COUNT_DAY', '0', '后台首页统计用户增长天数', '0', '', '默认统计最近半个月的用户数增长情况', '1420791945', '1420791945', '1', '7', '0');
+INSERT INTO `albert_config` VALUES ('11', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1379228036', '1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统\r\n5:邮件', '15');
 
 -- ----------------------------
 -- Table structure for albert_district
@@ -3821,7 +3826,15 @@ INSERT INTO `albert_menu` VALUES ('2', '用户', '0', '2', 'User/index', '0', ''
 INSERT INTO `albert_menu` VALUES ('3', '运营', '0', '3', 'Operation/index', '0', '', '', '0', 'laptop', 'admin');
 INSERT INTO `albert_menu` VALUES ('4', '安全', '0', '4', 'ActionLimit/limitList', '0', '', '', '0', 'shield', 'admin');
 INSERT INTO `albert_menu` VALUES ('5', '系统', '0', '5', 'Config/group', '0', '', '', '0', 'windows', 'admin');
-INSERT INTO `albert_menu` VALUES ('6', '扩展', '0', '5', 'Module/lists', '0', '', '', '0', 'cloud', 'admin');
+INSERT INTO `albert_menu` VALUES ('6', '扩展', '0', '6', 'Module/lists', '0', '', '', '0', 'cloud', 'admin');
+INSERT INTO `albert_menu` VALUES ('7', '后台菜单管理', '2', '6', 'Menu/index', '0', '', '权限管理', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('8', '新增', '7', '0', 'Menu/add', '0', '', '系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('9', '编辑', '7', '1', 'Menu/edit', '0', '', '系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('10', '导入', '7', '2', 'Menu/import', '0', '', '系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('11', '排序', '7', '3', 'Menu/sort', '1', '', '系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('12', '删除菜单', '7', '4', 'Menu/del', '1', '', '系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('13', '设置开发者模式可见', '7', '5', 'Menu/toogleDev', '1', '', ' 系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('14', '设置显示隐藏', '7', '6', 'Menu/toogleHide', '1', '', ' 系统设置', '0', '', 'Admin');
 
 -- ----------------------------
 -- Table structure for albert_module
@@ -3960,24 +3973,3 @@ CREATE TABLE `albert_user_role` (
   `init` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否初始化',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户角色关联';
-
--- ----------------------------
--- Table structure for albert_version
--- ----------------------------
-DROP TABLE IF EXISTS `albert_version`;
-CREATE TABLE `albert_version` (
-  `title` varchar(50) NOT NULL COMMENT '版本名',
-  `create_time` int(11) NOT NULL COMMENT '发布时间',
-  `update_time` int(11) NOT NULL COMMENT '更新的时间',
-  `log` text NOT NULL COMMENT '更新日志',
-  `url` varchar(150) NOT NULL COMMENT '链接到的远程文章',
-  `number` int(11) NOT NULL COMMENT '序列号，一般用日期数字标示',
-  `name` varchar(50) NOT NULL COMMENT '版本号',
-  `is_current` tinyint(4) NOT NULL,
-  PRIMARY KEY (`name`),
-  KEY `id` (`number`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='自动更新表';
-
--- ----------------------------
--- Records of albert_version
--- ----------------------------
