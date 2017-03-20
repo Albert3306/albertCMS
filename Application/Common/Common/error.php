@@ -61,12 +61,14 @@ function getErrorMsg($code,$defaul = '操作成功！')
         case -32:
             $msg = '昵称不合法';
             break;
-            break;
         case -41:
             $msg = '用户旧密码不正确';
             break;
+        case -42:
+            $msg = '密码错误，请重新输入！';
+            break;
         default:
-                $msg = '未知错误';
+            $msg = '未知错误';
     }
 
     return $msg;

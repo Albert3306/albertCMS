@@ -230,7 +230,7 @@ class UsersModel extends Model{
                 return $user; // 登录成功，返回用户数据
             } else {
                 action_log('input_password','users',$user['id'],$user['id']);
-                return -2; // 密码错误
+                return -42; // 密码错误
             }
         } else {
             return -1; // 用户不存在或被禁用
