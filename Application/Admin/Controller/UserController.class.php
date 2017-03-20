@@ -108,9 +108,9 @@ class UserController extends AdminController
                 $this->error('您输入的新密码与确认密码不一致');
             }
 
-            $user_db =D('Common/Users');
+            $user_db = D('Common/Users');
             $res = $user_db->updateInfo(UID, $password, $data);
-            if ($res['status']) {
+            if ($res !== false) {
                 $this->success('修改密码成功！');
             } else {
                 $this->error(getErrorMsg($res['info']));

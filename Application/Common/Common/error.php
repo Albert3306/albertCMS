@@ -50,6 +50,9 @@ function getErrorMsg($code,$defaul = '操作成功！')
         case -12:
             $msg = '用户名必须以中文或字母开始，只能包含拼音数字，字母，汉字！';
             break;
+        case -20:
+            $msg = '参数错误，请重新输入！';
+            break;
         case -30:
             $msg = '昵称已被占用';
         case -31:
@@ -62,7 +65,7 @@ function getErrorMsg($code,$defaul = '操作成功！')
             $msg = '昵称不合法';
             break;
         case -41:
-            $msg = '用户旧密码不正确';
+            $msg = '旧密码不正确';
             break;
         case -42:
             $msg = '密码错误，请重新输入！';

@@ -287,17 +287,15 @@ class UsersModel extends Model{
      * @param array  $data     修改的字段数组
      * @return true            修改成功，false 修改失败
      */
-    public function updateUserFields($uid, $password, $data)
+    public function updateInfo($uid, $password, $data)
     {
         if (empty($uid) || empty($password) || empty($data)) {
-            $this->error = '参数错误！25';
-            return false;
+            return -20;
         }
 
         //更新前检查用户密码
         if (!$this->verifyUser($uid, $password)) {
-            $this->error = '验证出错：密码不正确！';
-            return false;
+            return -41;
         }
 
         //更新用户信息
