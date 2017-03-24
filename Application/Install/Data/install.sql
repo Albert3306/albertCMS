@@ -3842,7 +3842,25 @@ INSERT INTO `al_menu` VALUES ('17', '用户信息', '2', '2', 'User/index', '0',
 INSERT INTO `al_menu` VALUES ('18', '重置用户密码', '17', '0', 'User/initpass', '1', '', '', '0', '', 'Admin');
 INSERT INTO `al_menu` VALUES ('19', '修改密码', '2', '3', 'User/updatePassword', '1', '', '', '0', '', 'Admin');
 INSERT INTO `al_menu` VALUES ('20', '修改昵称', '2', '4', 'User/updateNickname', '1', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('21', '用户组管理', '2', '5', 'AuthManager/index', '0', '', '权限管理', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('21', '用户组管理', '2', '5', 'AuthManage/index', '0', '', '权限管理', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('22', '删除', '21', '0', 'AuthManage/changeStatus?method=deleteGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('23', '禁用', '21', '1', 'AuthManage/changeStatus?method=forbidGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('24', '恢复', '21', '2', 'AuthManage/changeStatus?method=resumeGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('25', '新增', '21', '3', 'AuthManage/createGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('26', '编辑', '21', '4', 'AuthManage/editGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('27', '保存用户组', '21', '5', 'AuthManage/writeGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('28', '授权', '21', '6', 'AuthManage/group', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('29', '访问授权', '21', '7', 'AuthManage/access', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('30', '成员授权', '21', '8', 'AuthManage/user', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('31', '解除授权', '21', '9', 'AuthManage/removeFromGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('32', '保存成员授权', '21', '10', 'AuthManage/addToGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('33', '分类授权', '21', '11', 'AuthManage/category', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('34', '保存分类授权', '21', '12', 'AuthManage/addToCategory', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('35', '模型授权', '21', '13', 'AuthManage/modelauth', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('36', '保存模型授权', '21', '14', 'AuthManage/addToModel', '0', '', '', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('37', '新增权限节点', '21', '15', 'AuthManage/addNode', '1', '', '', '1', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('38', '前台权限管理', '21', '16', 'AuthManage/accessUser', '1', '', '权限管理', '0', '', 'Admin');
+INSERT INTO `al_menu` VALUES ('39', '删除权限节点', '21', '17', 'AuthManage/deleteNode', '1', '', '', '0', '', 'Admin');
 
 -- ----------------------------
 -- Table structure for albert_module

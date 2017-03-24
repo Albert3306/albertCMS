@@ -23,7 +23,7 @@ class LoginController extends Controller
     public function login($username = null, $password = null, $verify = null)
     {
         if (IS_POST) {
-            /* 检测验证码 TODO: */
+            // 检测验证码
             if (APP_DEBUG == false){
                 if(!check_verify($verify)){
                     $this->error('验证码输入错误！',U('Login/login'),true);

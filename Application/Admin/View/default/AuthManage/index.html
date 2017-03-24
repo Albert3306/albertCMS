@@ -17,49 +17,47 @@
     </div>
 	<!-- 数据列表 -->
 	<div class="data-table with-padding">
-	<table class="table table-bordered table-striped ">
-    <thead>
-        <tr>
-		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
-		<th class="">用户组</th>
-		<th class="">描述</th>
-
-		<th class="">授权</th>
-		<th class="">状态</th>
-		<th class="">操作</th>
-		</tr>
-    </thead>
-    <tbody>
-		<notempty name="_list">
-		<volist name="_list" id="vo">
-		<tr>
-            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
-			<td><a href="{:U('AuthManager/editgroup?id='.$vo['id'])}">{$vo.title}</a> </td>
-			<td><span>{:mb_strimwidth($vo['description'],0,60,"...","utf-8")}</span></td>
-
-
-			<td><a class=" btn btn-danger btn-xs" href="{:U('AuthManager/access?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >管理权限</a>
-                <a class=" btn btn-success btn-xs" href="{:U('AuthManager/accessuser?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >前台权限</a>
-			<a class=" btn btn-warning btn-xs" href="{:U('AuthManager/user?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >成员授权</a>
-			</td>
-			<td>{$vo.status_text}</td>
-			<td><eq name="vo.status" value="1">
-				<a href="{:U('AuthManager/changeStatus?method=forbidGroup&id='.$vo['id'])}" class="ajax-get">禁用</a>
-				<else/>
-				<a href="{:U('AuthManager/changeStatus?method=resumeGroup&id='.$vo['id'])}" class="ajax-get">启用</a>
-				</eq>
-                <!--修改内容开始-->
-				<a href="{:U('AuthManager/changeStatus?method=deleteGroup&id='.$vo['id'])}" class="confirm ajax-get">删除</a>
-                <!--修改内容结束-->
-                </td>
-		</tr>
-		</volist>
-		<else/>
-		<td colspan="6" class="text-center">  aOh! 配置管理! </td>
-		</notempty>
-	</tbody>
-    </table>
-
+    	<table class="table table-bordered table-striped ">
+            <thead>
+                <tr>
+            		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+            		<th class="">用户组</th>
+            		<th class="">描述</th>
+            		<th class="">授权</th>
+            		<th class="">状态</th>
+            		<th class="">操作</th>
+        		</tr>
+            </thead>
+            <tbody>
+        		<notempty name="_list">
+            		<volist name="_list" id="vo">
+                		<tr>
+                            <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}" /></td>
+                			<td><a href="{:U('AuthManage/editgroup?id='.$vo['id'])}">{$vo.title}</a> </td>
+                			<td><span>{:mb_strimwidth($vo['description'],0,60,"...","utf-8")}</span></td>
+                			<td>
+                                <a class=" btn btn-danger btn-xs" href="{:U('AuthManage/access?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >管理权限</a>
+                                <a class=" btn btn-success btn-xs" href="{:U('AuthManage/accessuser?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >前台权限</a>
+                                <a class=" btn btn-warning btn-xs" href="{:U('AuthManage/user?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >成员授权</a>
+                			</td>
+                			<td>{$vo.status_text}</td>
+                			<td>
+                                <eq name="vo.status" value="1">
+                    				<a href="{:U('AuthManage/changeStatus?method=forbidGroup&id='.$vo['id'])}" class="ajax-get">禁用</a>
+                    			<else/>
+                    				<a href="{:U('AuthManage/changeStatus?method=resumeGroup&id='.$vo['id'])}" class="ajax-get">启用</a>
+                    			</eq>
+                                <!--修改内容开始-->
+                    			<a href="{:U('AuthManage/changeStatus?method=deleteGroup&id='.$vo['id'])}" class="confirm ajax-get">删除</a>
+                                <!--修改内容结束-->
+                            </td>
+                		</tr>
+            		</volist>
+        		<else/>
+                    <td colspan="6" class="text-center">  aOh! 配置管理! </td>
+        		</notempty>
+        	</tbody>
+        </table>
 	</div>
     <div class="page">
         {$_page}
@@ -69,6 +67,6 @@
 <block name="js">
 <script type="text/javascript" charset="utf-8">
     //导航高亮
-    highlight_subnav('{:U('AuthManager/index')}');
+    highlight_subnav('{:U('AuthManage/index')}');
 </script>
 </block>
