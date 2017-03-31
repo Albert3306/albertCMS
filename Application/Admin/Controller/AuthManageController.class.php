@@ -79,6 +79,29 @@ class AuthManageController extends AdminController
     }
 
     /**
+     * 访问授权页面
+     */
+    public function access()
+    {
+        $this->updateRules();
+        $auth_group = M('AuthGroup')->where(array('status' => array('egt', '0'), 'module' => 'admin', 'type' => AuthGroupModel::TYPE_ADMIN))
+            ->getfield('id,id,title,rules');
+        $node_list = $this->returnNodes();
+        $map = array('module' => 'admin', 'type' => AuthRuleModel::RULE_MAIN, 'status' => 1);
+        $main_rules = M('AuthRule')->where($map)->getField('name,id');
+        $map = array('module' => 'admin', 'type' => AuthRuleModel::RULE_URL, 'status' => 1);
+        $child_rules = M('AuthRule')->where($map)->getField('name,id');
+
+        $this->assign('main_rules', $main_rules);
+        $this->assign('auth_rules', $child_rules);
+        $this->assign('node_list', $node_list);
+        $this->assign('auth_group', $auth_group);
+        $this->assign('this_group', $auth_group[(int)$_GET['group_id']]);
+        $this->meta_title = L('_ACCESS_AUTHORIZATION_');
+        $this->display('');
+    }
+
+    /**
      * 获得合并后的权限
      * @param  array  $oldRules 旧的权限
      * @param  array  $rules    需更新的权限

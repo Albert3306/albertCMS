@@ -52,39 +52,39 @@
                 </tr>
                 </thead>
                 <tbody>
-                <notempty name="list">
-                    <volist name="list" id="menu">
-                        <tr>
-                            <td><input class="ids row-selected" type="checkbox" name="id[]" value="{$menu.id}"></td>
-                            <td>{$menu.id}</td>
-                            <td>
-                                <a href="{:U('index?pid='.$menu['id'])}">{$menu.title}</a>
-                            </td>
-                            <td>{$menu.up_title|default='无'}</td>
-                            <td>{$menu.group}</td>
-                            <td>{$menu.url}</td>
-                            <td>{$menu.sort}</td>
-                            <td>
-                                <a href="{:U('toogleDev',array('id'=>$menu['id'],'value'=>abs($menu['is_dev']-1)))}"
-                                   class="ajax-get">
-                                    {$menu.is_dev_text}
-                                </a>
-                            </td>
-                            <td>
-                                <a href="{:U('toogleHide',array('id'=>$menu['id'],'value'=>abs($menu['hide']-1)))}"
-                                   class="ajax-get">
-                                    {$menu.hide_text}
-                                </a>
-                            </td>
-                            <td>
-                                <a title="编辑" href="{:U('edit?id='.$menu['id'])}">编辑</a>
-                                <a class="confirm ajax-get" title="删除" href="{:U('del?id='.$menu['id'])}">删除</a>
-                            </td>
-                        </tr>
-                    </volist>
+                    <notempty name="list">
+                        <volist name="list" id="menu">
+                            <tr>
+                                <td><input class="ids row-selected" type="checkbox" name="id[]" value="{$menu.id}"></td>
+                                <td>{$menu.id}</td>
+                                <td>
+                                    <a href="{:U('index?pid='.$menu['id'])}">{$menu.title}</a>
+                                </td>
+                                <td>{$menu.up_title|default='无'}</td>
+                                <td>{$menu.group}</td>
+                                <td>{$menu.url}</td>
+                                <td>{$menu.sort}</td>
+                                <td>
+                                    <a href="{:U('toogleDev',array('id'=>$menu['id'],'value'=>abs($menu['is_dev']-1)))}"
+                                       class="ajax-get">
+                                        {$menu.is_dev_text}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{:U('toogleHide',array('id'=>$menu['id'],'value'=>abs($menu['hide']-1)))}"
+                                       class="ajax-get">
+                                        {$menu.hide_text}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a title="编辑" href="{:U('edit?id='.$menu['id'])}">编辑</a>
+                                    <a class="confirm ajax-get" title="删除" href="{:U('del?id='.$menu['id'])}">删除</a>
+                                </td>
+                            </tr>
+                        </volist>
                     <else/>
-                    <td colspan="10" class="text-center"> aOh! 配置管理!</td>
-                </notempty>
+                        <td colspan="10" class="text-center"> aOh! 配置管理!</td>
+                    </notempty>
                 </tbody>
             </table>
         </form>
