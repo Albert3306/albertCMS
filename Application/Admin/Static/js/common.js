@@ -1,11 +1,10 @@
 //dom加载完成后执行的js
-;
 $(function () {
-
     //全选的实现
     $(".check-all").click(function () {
         $(".ids").prop("checked", this.checked);
     });
+
     $(".ids").click(function () {
         var option = $(".ids");
         option.each(function (i) {
@@ -164,9 +163,9 @@ $(function () {
 
         if(typeof c !='undefined')
         {
-            var msg = $.zui.messager.show(text, {placement: 'bottom',type:c});
+            var msg = $.messager.show(text, {placement: 'bottom',type:c});
         }else {
-            var msg =  $.zui.messager.show(text, {placement: 'bottom'})
+            var msg = $.messager.show(text, {placement: 'bottom'})
         }
         msg.show();
     };

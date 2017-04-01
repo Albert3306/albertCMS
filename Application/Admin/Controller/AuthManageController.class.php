@@ -213,4 +213,28 @@ class AuthManageController extends AdminController
                 $this->error($method . '参数非法');
         }
     }
+
+    /**
+     * 用户组授权用户列表
+     */
+    public function user($group_id)
+    {
+        if (empty($group_id)) {
+            $this->error('参数错误！');
+        }
+
+        $auth_group = M('AuthGroup')->where(array('status' => array('egt', '0'), 'module' => 'admin', 'type' => AuthGroupModel::TYPE_ADMIN))
+            ->getfield('id,id,title,rules');
+        $prefix = C('DB_PREFIX');
+        $l_table = $prefix . (AuthGroupModel::USERS);
+        $r_table = $prefix . (AuthGroupModel::AUTH_GROUP_ACCESS);
+        $model = M()->table($l_table . ' u')->join($r_table . ' a ON u.id=a.uid');
+        $_REQUEST = array();
+        $list = $this->lists($model, array('a.group_id' => $group_id, 'u.status' => array('egt', 0)), 'u.id asc', null, 'u.id,u.nickname,u.last_login_time,u.last_login_ip,u.status');
+        int_to_string($list);
+        $this->assign('_list', $list);
+        $this->assign('auth_group', $auth_group);
+        $this->assign('this_group', $auth_group[(int)$_GET['group_id']]);
+        $this->display();
+    }
 }
