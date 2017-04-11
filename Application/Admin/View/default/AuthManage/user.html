@@ -38,12 +38,12 @@
     <tbody>
 		<volist name="_list" id="vo">
 		<tr>
-			<td>{$vo.uid} </td>
+			<td>{$vo.id} </td>
 			<td>{$vo.nickname}</td>
 			<td><span>{$vo.last_login_time|time_format}</span></td>
 			<td><span>{$vo.last_login_ip|long2ip}</span></td>
 			<td>{$vo.status_text}</td>
-			<td><a href="{:U('AuthManage/removeFromGroup?uid='.$vo['uid'].'&group_id='.I('group_id'))}" class="ajax-get">解除授权</a>
+			<td><a href="{:U('AuthManage/removeFromGroup?uid='.$vo['id'].'&group_id='.I('group_id'))}" class="ajax-get">解除授权</a>
 
                 </td>
 		</tr>

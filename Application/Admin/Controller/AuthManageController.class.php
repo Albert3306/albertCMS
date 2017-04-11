@@ -237,4 +237,28 @@ class AuthManageController extends AdminController
         $this->assign('this_group', $auth_group[(int)$_GET['group_id']]);
         $this->display();
     }
+
+    /**
+     * 将用户从用户组中移除  入参:uid,group_id
+     */
+    public function removeFromGroup()
+    {
+        $uid = I('uid');
+        $gid = I('group_id');
+        if ($uid == UID) {
+            $this->error('不允许解除自身授权！');
+        }
+        if (empty($uid) || empty($gid)) {
+            $this->error('参数有误！');
+        }
+        $AuthGroup = D('AuthGroup');
+        if (!$AuthGroup->find($gid)) {
+            $this->error('用户组不存在！');
+        }
+        if ($AuthGroup->removeFromGroup($uid, $gid)) {
+            $this->success('操作成功！');
+        } else {
+            $this->error('操作失败！');
+        }
+    }
 }
