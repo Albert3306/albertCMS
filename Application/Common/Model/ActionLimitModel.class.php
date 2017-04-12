@@ -6,6 +6,7 @@ use Think\Model;
 
 /**
  * 行为日志模型
+ * @author albert https://github.com/Albert3306
  */
 class ActionLimitModel extends Model
 {
@@ -29,7 +30,8 @@ class ActionLimitModel extends Model
      * 根据条件获取指定日志
      * @param  array  $where 查询条件
      */
-    public function getActionLimit($where){
+    public function getActionLimit($where)
+    {
         $limit = $this->where($where)->find();
         return $limit;
     }
@@ -38,7 +40,8 @@ class ActionLimitModel extends Model
      * 根据条件获取日志列表
      * @param  array  $where 查询条件
      */
-    public function getList($where){
+    public function getList($where)
+    {
         $list = $this->where($where)->select();
         return $list;
     }

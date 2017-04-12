@@ -8,6 +8,7 @@ use Admin\Builder\AdminSortBuilder;
 
 /**
  * 用户控制器
+ * @author albert https://github.com/Albert3306
  */
 class UserController extends AdminController
 {

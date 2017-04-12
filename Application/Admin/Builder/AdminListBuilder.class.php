@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Admin\Builder;
 
 class AdminListBuilder extends AdminBuilder

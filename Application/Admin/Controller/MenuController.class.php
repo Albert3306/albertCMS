@@ -4,6 +4,7 @@ namespace Admin\Controller;
 
 /**
  * 菜单控制器
+ * @author albert https://github.com/Albert3306
  */
 class MenuController extends AdminController {
     private $menu_db;
@@ -50,7 +51,8 @@ class MenuController extends AdminController {
     /**
      * 新增菜单
      */
-    public function add(){
+    public function add()
+    {
         if (IS_POST) {
             $data = $this->menu_db->create();
             if ($data) {
@@ -79,7 +81,8 @@ class MenuController extends AdminController {
     /**
      * 编辑配置
      */
-    public function edit($id = 0){
+    public function edit($id = 0)
+    {
         if (IS_POST) {
             $data = $this->menu_db->create();
             if ($data) {
@@ -114,7 +117,8 @@ class MenuController extends AdminController {
     /**
      * 删除后台菜单
      */
-    public function del(){
+    public function del()
+    {
         $id = array_unique((array)I('id',0));
 
         if (empty($id)) {
@@ -131,11 +135,13 @@ class MenuController extends AdminController {
         }
     }
 
-    public function toogleHide($id,$value = 1){
+    public function toogleHide($id,$value = 1)
+    {
         $this->editRow('Menu', array('hide'=>$value), array('id'=>$id));
     }
 
-    public function toogleDev($id,$value = 1){
+    public function toogleDev($id,$value = 1)
+    {
         $this->editRow('Menu', array('is_dev'=>$value), array('id'=>$id));
     }
 
@@ -144,7 +150,8 @@ class MenuController extends AdminController {
      * @param  array   $tree 数组树
      * @param  integer $pid  父级 ID
      */
-    public function importFile($tree = null, $pid=0){
+    public function importFile($tree = null, $pid=0)
+    {
         if ($tree == null) {
             $file = APP_PATH."Admin/Conf/Menu.php";
             $tree = require_once($file);
@@ -169,7 +176,8 @@ class MenuController extends AdminController {
     /**
      * 导入菜单
      */
-    public function import(){
+    public function import()
+    {
         if (IS_POST) {
             $tree = I('post.tree');
             $lists = explode(PHP_EOL, $tree);
@@ -206,7 +214,8 @@ class MenuController extends AdminController {
     /**
      * 菜单排序
      */
-    public function sort(){
+    public function sort()
+    {
         if (IS_GET) {
             $ids = I('get.ids');
             $pid = I('get.pid');

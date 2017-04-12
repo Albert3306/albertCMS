@@ -5,6 +5,7 @@ use Think\Model;
 
 /**
  * 菜单模型
+ * @author albert https://github.com/Albert3306
  */
 class MenuModel extends Model {
 	protected $_validate = array(
@@ -16,7 +17,8 @@ class MenuModel extends Model {
 	 * @param  integer $id 菜单 ID
 	 * @return array       返回数据数组
 	 */
-	public function getPath($id){
+	public function getPath($id)
+	{
 		$path = array();
 		$nav = $this->where("id={$id}")->field('id,pid,title')->find();
 		$path[] = $nav;

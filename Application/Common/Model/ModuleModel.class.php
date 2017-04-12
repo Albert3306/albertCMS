@@ -6,6 +6,7 @@ use Think\Model;
 
 /**
  * 模块模型
+ * @author albert https://github.com/Albert3306
  */
 class ModuleModel extends Model
 {

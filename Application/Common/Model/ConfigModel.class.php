@@ -5,6 +5,7 @@ use Think\Model;
 
 /**
  * 配置模型
+ * @author albert https://github.com/Albert3306
  */
 class ConfigModel extends Model {
     protected $_validate = array(
@@ -24,7 +25,8 @@ class ConfigModel extends Model {
      * 获取配置列表
      * @return array 配置数组
      */
-    public function lists(){
+    public function lists()
+    {
         $map    = array('status' => 1);
         $data   = $this->where($map)->field('type,name,value')->select();
         
@@ -42,7 +44,8 @@ class ConfigModel extends Model {
      * @param  integer $type  配置类型
      * @param  string  $value 配置值
      */
-    private function parse($type, $value){
+    private function parse($type, $value)
+    {
         switch ($type) {
             case 3: //解析数组
                 $array = preg_split('/[,;\r\n]+/', trim($value, ",;\r\n"));

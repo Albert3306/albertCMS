@@ -6,6 +6,7 @@ use Think\Model;
 
 /**
  * 用户组模型类
+ * @author albert https://github.com/Albert3306
  */
 class AuthGroupModel extends Model {
     const TYPE_ADMIN        = 1;                   // 管理员用户组类型标识
@@ -23,7 +24,8 @@ class AuthGroupModel extends Model {
      * 默认返回正常状态的管理员用户组列表
      * @param array $where   查询条件,供where()方法使用
      */
-    public function getGroups($where=array()){
+    public function getGroups($where=array())
+    {
         $map = array('status'=>1,'type'=>self::TYPE_ADMIN,'module'=>'admin');
         $map = array_merge($map,$where);
         return $this->where($map)->select();
@@ -35,7 +37,8 @@ class AuthGroupModel extends Model {
      * 
      * 示例: 把uid=1的用户添加到group_id为1,2的组 `AuthGroupModel->addToGroup(1,'1,2');`
      */
-    public function addToGroup($uid,$gid){
+    public function addToGroup($uid,$gid)
+    {
         $uid = is_array($uid)?implode(',',$uid):trim($uid,',');
         $gid = is_array($gid)?$gid:explode( ',',trim($gid,',') );
 
@@ -82,7 +85,8 @@ class AuthGroupModel extends Model {
      *                                     ...
      *                                 )   
      */
-    static public function getUserGroup($uid){
+    static public function getUserGroup($uid)
+    {
         static $groups = array();
         if (isset($groups[$uid]))
             return $groups[$uid];
@@ -102,7 +106,8 @@ class AuthGroupModel extends Model {
      * @param int|string|array $gid   用户组id
      * @param int|string|array $cid   分类id
      */
-    public function removeFromGroup($uid,$gid){
+    public function removeFromGroup($uid,$gid)
+    {
         return M(self::AUTH_GROUP_ACCESS)->where( array( 'uid'=>$uid,'group_id'=>$gid) )->delete();
     }
 }

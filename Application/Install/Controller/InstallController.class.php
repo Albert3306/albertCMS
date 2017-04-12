@@ -5,7 +5,8 @@ use Think\Db;
 use Think\Storage;
 
 class InstallController extends Controller{
-    protected function _initialize(){
+    protected function _initialize()
+    {
         if(Storage::has( 'Conf/install.lock')){
             $this->error('已经成功安装，请不要重复安装!');
         }
@@ -14,7 +15,8 @@ class InstallController extends Controller{
     /**
      * 安装第一步，检测运行所需的环境设置
      */
-    public function step1(){
+    public function step1()
+    {
         session('error', false);
 
         //环境检测
@@ -39,7 +41,8 @@ class InstallController extends Controller{
     /**
      * 安装第二步，创建数据库
      */
-    public function step2($db = null, $admin = null){
+    public function step2($db = null, $admin = null)
+    {
         if(IS_POST){
             //检测管理员信息
             if(!is_array($admin) || empty($admin[0]) || empty($admin[1]) || empty($admin[3])){
@@ -100,7 +103,8 @@ class InstallController extends Controller{
     }
 
     //安装第三步，安装数据表，创建配置文件
-    public function step3(){
+    public function step3()
+    {
         $this->display();
 
         //连接数据库

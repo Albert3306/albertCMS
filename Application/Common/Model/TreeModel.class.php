@@ -3,6 +3,7 @@ namespace Common\Model;
 
 /**
  * 生成多层树状下拉选框的工具模型
+ * @author albert https://github.com/Albert3306
  */
 class TreeModel {
 	/**
@@ -13,7 +14,8 @@ class TreeModel {
      * @param string $level level标记字段
      * @return array
      */
-	public function toTree($list=null, $pk='id',$pid = 'pid',$child = '_child'){
+	public function toTree($list=null, $pk='id',$pid = 'pid',$child = '_child')
+	{
 		if(null === $list) {
             // 默认直接取查询返回的结果集合
 			$list   =   &$this->dataList;
@@ -57,7 +59,8 @@ class TreeModel {
 	 * @param integer $level 进行递归时传递用的参数
 	 */
 	private $formatTree; //用于树型数组完成递归格式的全局变量
-	private function _toFormatTree($list,$level=0,$title = 'title') {
+	private function _toFormatTree($list,$level=0,$title = 'title')
+	{
 		foreach($list as $key=>$val){
 			$tmp_str=str_repeat("&nbsp;",$level*2);
 			$tmp_str.="└";
@@ -76,7 +79,8 @@ class TreeModel {
 		return;
 	}
 
-	public function toFormatTree($list,$title = 'title',$pk='id',$pid = 'pid',$root = 0){
+	public function toFormatTree($list,$title = 'title',$pk='id',$pid = 'pid',$root = 0)
+	{
 		$list = list_to_tree($list,$pk,$pid,'_child',$root);
 		$this->formatTree = array();
 		$this->_toFormatTree($list,0,$title);

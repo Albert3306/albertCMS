@@ -3,6 +3,7 @@ namespace Admin\Controller;
 
 /**
  * 后端首页控制器
+ * @author albert https://github.com/Albert3306
  */
 class IndexController extends AdminController
 {
