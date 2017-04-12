@@ -197,18 +197,18 @@ CREATE TABLE `albert_config` (
 -- ----------------------------
 -- Records of albert_config
 -- ----------------------------
-INSERT INTO `al_config` VALUES ('1', '_USERCONFIG_USERNAME_MIN_LENGTH', '0', '', '0', '', null, '1484128566', '1484128566', '1', '2', '0');
-INSERT INTO `al_config` VALUES ('2', '_USERCONFIG_USERNAME_MAX_LENGTH', '0', '', '0', '', null, '1484128566', '1484128566', '1', '32', '0');
-INSERT INTO `al_config` VALUES ('3', 'USER_NAME_BAOLIU', '1', '保留用户名和昵称', '3', '', '禁止注册用户名和昵称，包含这些即无法注册,用\" , \"号隔开，用户只能是英文，下划线_，数字等', '1388845937', '1388845937', '1', '管理员,测试,admin,垃圾', '0');
-INSERT INTO `al_config` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0：关闭\r\n1：开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1378898976', '1', '1', '11');
-INSERT INTO `al_config` VALUES ('5', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165454', '1', null, '27');
-INSERT INTO `al_config` VALUES ('6', 'ALLOW_VISIT', '3', '不受限控制器方法', '0', '', null, '1386644047', '1386644047', '1', '0:article/draftbox\r\n1:article/mydocument\r\n2:Category/tree\r\n3:Index/verify\r\n4:file/upload\r\n5:file/download\r\n6:user/updatePassword\r\n7:user/updateNickname\r\n8:file/uploadpicture', '2');
-INSERT INTO `al_config` VALUES ('7', 'DENY_VISIT', '3', '超管专限控制器方法', '0', '', '仅超级管理员可访问的控制器方法', '1386644141', '1386644141', '1', '0:Addons/addhook\r\n1:Addons/edithook\r\n2:Addons/delhook\r\n3:Addons/updateHook\r\n4:Admin/getMenus\r\n5:Admin/recordList\r\n6:AuthManager/updateRules\r\n7:AuthManager/tree', '3');
-INSERT INTO `al_config` VALUES ('8', 'DEVELOP_MODE', '4', '开启开发者模式', '4', '0：关闭\r\n1：开启', '是否开启开发者模式', '1383105995', '1383105995', '1', '1', '26');
-INSERT INTO `al_config` VALUES ('9', 'WEB_SITE_NAME', '2', '站点名称', '4', '', '用于后端 title 展示', '1383105995', '1383105995', '1', 'Albert', '0');
-INSERT INTO `al_config` VALUES ('10', 'COUNT_DAY', '0', '后台首页统计用户增长天数', '0', '', '默认统计最近半个月的用户数增长情况', '1420791945', '1420791945', '1', '7', '0');
-INSERT INTO `al_config` VALUES ('11', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1379228036', '1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统\r\n5:邮件', '15');
-INSERT INTO `al_config` VALUES ('12', 'LIST_ROWS', '0', '后台每页记录数', '2', '', '后台数据每页显示记录数', '1379503896', '1379503896', '1', '10', '24');
+INSERT INTO `albert_config` VALUES ('1', '_USERCONFIG_USERNAME_MIN_LENGTH', '0', '', '0', '', null, '1484128566', '1484128566', '1', '2', '0');
+INSERT INTO `albert_config` VALUES ('2', '_USERCONFIG_USERNAME_MAX_LENGTH', '0', '', '0', '', null, '1484128566', '1484128566', '1', '32', '0');
+INSERT INTO `albert_config` VALUES ('3', 'USER_NAME_BAOLIU', '1', '保留用户名和昵称', '3', '', '禁止注册用户名和昵称，包含这些即无法注册,用\" , \"号隔开，用户只能是英文，下划线_，数字等', '1388845937', '1388845937', '1', '管理员,测试,admin,垃圾', '0');
+INSERT INTO `albert_config` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0：关闭\r\n1：开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1378898976', '1', '1', '11');
+INSERT INTO `albert_config` VALUES ('5', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165454', '1', null, '27');
+INSERT INTO `albert_config` VALUES ('6', 'ALLOW_VISIT', '3', '不受限控制器方法', '0', '', null, '1386644047', '1386644047', '1', '0:article/draftbox\r\n1:article/mydocument\r\n2:Category/tree\r\n3:Index/verify\r\n4:file/upload\r\n5:file/download\r\n6:user/updatePassword\r\n7:user/updateNickname\r\n8:file/uploadpicture', '2');
+INSERT INTO `albert_config` VALUES ('7', 'DENY_VISIT', '3', '超管专限控制器方法', '0', '', '仅超级管理员可访问的控制器方法', '1386644141', '1386644141', '1', '0:Addons/addhook\r\n1:Addons/edithook\r\n2:Addons/delhook\r\n3:Addons/updateHook\r\n4:Admin/getMenus\r\n5:Admin/recordList\r\n6:AuthManager/updateRules\r\n7:AuthManager/tree', '3');
+INSERT INTO `albert_config` VALUES ('8', 'DEVELOP_MODE', '4', '开启开发者模式', '4', '0：关闭\r\n1：开启', '是否开启开发者模式', '1383105995', '1383105995', '1', '1', '26');
+INSERT INTO `albert_config` VALUES ('9', 'WEB_SITE_NAME', '2', '站点名称', '4', '', '用于后端 title 展示', '1383105995', '1383105995', '1', 'Albert', '0');
+INSERT INTO `albert_config` VALUES ('10', 'COUNT_DAY', '0', '后台首页统计用户增长天数', '0', '', '默认统计最近半个月的用户数增长情况', '1420791945', '1420791945', '1', '7', '0');
+INSERT INTO `albert_config` VALUES ('11', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1379228036', '1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统\r\n5:邮件', '15');
+INSERT INTO `albert_config` VALUES ('12', 'LIST_ROWS', '0', '后台每页记录数', '2', '', '后台数据每页显示记录数', '1379503896', '1379503896', '1', '10', '24');
 
 -- ----------------------------
 -- Table structure for albert_file
@@ -258,48 +258,48 @@ CREATE TABLE `albert_menu` (
 -- ----------------------------
 -- Records of albert_menu
 -- ----------------------------
-INSERT INTO `al_menu` VALUES ('1', '首页', '0', '1', 'Index/index', '0', '', '', '0', 'home', 'admin');
-INSERT INTO `al_menu` VALUES ('2', '用户', '0', '2', 'User/index', '0', '', '', '0', 'user', 'admin');
-INSERT INTO `al_menu` VALUES ('3', '运营', '0', '3', 'Operation/index', '0', '', '', '0', 'laptop', 'admin');
-INSERT INTO `al_menu` VALUES ('4', '安全', '0', '4', 'ActionLimit/limitList', '0', '', '', '0', 'shield', 'admin');
-INSERT INTO `al_menu` VALUES ('5', '系统', '0', '5', 'Config/group', '0', '', '', '0', 'windows', 'admin');
-INSERT INTO `al_menu` VALUES ('6', '扩展', '0', '6', 'Module/lists', '0', '', '', '0', 'cloud', 'admin');
-INSERT INTO `al_menu` VALUES ('7', '后台菜单管理', '2', '6', 'Menu/index', '0', '', '权限管理', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('8', '新增', '7', '0', 'Menu/add', '0', '', '系统设置', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('9', '编辑', '7', '1', 'Menu/edit', '0', '', '系统设置', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('10', '导入', '7', '2', 'Menu/import', '0', '', '系统设置', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('11', '排序', '7', '3', 'Menu/sort', '1', '', '系统设置', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('12', '删除菜单', '7', '4', 'Menu/del', '1', '', '系统设置', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('13', '设置开发者模式可见', '7', '5', 'Menu/toogleDev', '1', '', ' 系统设置', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('14', '设置显示隐藏', '7', '6', 'Menu/toogleHide', '1', '', ' 系统设置', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('15', '模块管理', '6', '5', 'module/lists', '0', '', '本地', '0', '', '');
-INSERT INTO `al_menu` VALUES ('16', '编辑模块', '15', '0', 'Module/edit', '1', '', '模块管理', '0', '', '');
-INSERT INTO `al_menu` VALUES ('17', '用户信息', '2', '2', 'User/index', '0', '', '用户管理', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('18', '重置用户密码', '17', '0', 'User/initpass', '1', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('19', '修改密码', '2', '3', 'User/updatePassword', '1', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('20', '修改昵称', '2', '4', 'User/updateNickname', '1', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('21', '用户组管理', '2', '5', 'AuthManage/index', '0', '', '权限管理', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('22', '删除', '21', '0', 'AuthManage/changeStatus?method=deleteGroup', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('23', '禁用', '21', '1', 'AuthManage/changeStatus?method=forbidGroup', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('24', '恢复', '21', '2', 'AuthManage/changeStatus?method=resumeGroup', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('25', '新增', '21', '3', 'AuthManage/createGroup', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('26', '编辑', '21', '4', 'AuthManage/editGroup', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('27', '保存用户组', '21', '5', 'AuthManage/writeGroup', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('28', '授权', '21', '6', 'AuthManage/group', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('29', '访问授权', '21', '7', 'AuthManage/access', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('30', '成员授权', '21', '8', 'AuthManage/user', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('31', '解除授权', '21', '9', 'AuthManage/removeFromGroup', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('32', '保存成员授权', '21', '10', 'AuthManage/addToGroup', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('33', '分类授权', '21', '11', 'AuthManage/category', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('34', '保存分类授权', '21', '12', 'AuthManage/addToCategory', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('35', '模型授权', '21', '13', 'AuthManage/modelauth', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('36', '保存模型授权', '21', '14', 'AuthManage/addToModel', '0', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('37', '新增权限节点', '21', '15', 'AuthManage/addNode', '1', '', '', '1', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('38', '前台权限管理', '21', '16', 'AuthManage/accessUser', '1', '', '权限管理', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('39', '删除权限节点', '21', '17', 'AuthManage/deleteNode', '1', '', '', '0', '', 'Admin');
-INSERT INTO `al_menu` VALUES ('40', '行为日志', '4', '0', 'Action/actionlog', '0', '', '行为管理', '0', '', '');
-INSERT INTO `al_menu` VALUES ('41', '删除日志', '40', '0', 'Action/remove', '1', '', '', '0', '', '');
-INSERT INTO `al_menu` VALUES ('42', '清空日志', '40', '1', 'Action/clear', '1', '', '', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('1', '首页', '0', '1', 'Index/index', '0', '', '', '0', 'home', 'admin');
+INSERT INTO `albert_menu` VALUES ('2', '用户', '0', '2', 'User/index', '0', '', '', '0', 'user', 'admin');
+INSERT INTO `albert_menu` VALUES ('3', '运营', '0', '3', 'Operation/index', '0', '', '', '0', 'laptop', 'admin');
+INSERT INTO `albert_menu` VALUES ('4', '安全', '0', '4', 'ActionLimit/limitList', '0', '', '', '0', 'shield', 'admin');
+INSERT INTO `albert_menu` VALUES ('5', '系统', '0', '5', 'Config/group', '0', '', '', '0', 'windows', 'admin');
+INSERT INTO `albert_menu` VALUES ('6', '扩展', '0', '6', 'Module/lists', '0', '', '', '0', 'cloud', 'admin');
+INSERT INTO `albert_menu` VALUES ('7', '后台菜单管理', '2', '6', 'Menu/index', '0', '', '权限管理', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('8', '新增', '7', '0', 'Menu/add', '0', '', '系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('9', '编辑', '7', '1', 'Menu/edit', '0', '', '系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('10', '导入', '7', '2', 'Menu/import', '0', '', '系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('11', '排序', '7', '3', 'Menu/sort', '1', '', '系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('12', '删除菜单', '7', '4', 'Menu/del', '1', '', '系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('13', '设置开发者模式可见', '7', '5', 'Menu/toogleDev', '1', '', ' 系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('14', '设置显示隐藏', '7', '6', 'Menu/toogleHide', '1', '', ' 系统设置', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('15', '模块管理', '6', '5', 'module/lists', '0', '', '本地', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('16', '编辑模块', '15', '0', 'Module/edit', '1', '', '模块管理', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('17', '用户信息', '2', '2', 'User/index', '0', '', '用户管理', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('18', '重置用户密码', '17', '0', 'User/initpass', '1', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('19', '修改密码', '2', '3', 'User/updatePassword', '1', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('20', '修改昵称', '2', '4', 'User/updateNickname', '1', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('21', '用户组管理', '2', '5', 'AuthManage/index', '0', '', '权限管理', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('22', '删除', '21', '0', 'AuthManage/changeStatus?method=deleteGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('23', '禁用', '21', '1', 'AuthManage/changeStatus?method=forbidGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('24', '恢复', '21', '2', 'AuthManage/changeStatus?method=resumeGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('25', '新增', '21', '3', 'AuthManage/createGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('26', '编辑', '21', '4', 'AuthManage/editGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('27', '保存用户组', '21', '5', 'AuthManage/writeGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('28', '授权', '21', '6', 'AuthManage/group', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('29', '访问授权', '21', '7', 'AuthManage/access', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('30', '成员授权', '21', '8', 'AuthManage/user', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('31', '解除授权', '21', '9', 'AuthManage/removeFromGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('32', '保存成员授权', '21', '10', 'AuthManage/addToGroup', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('33', '分类授权', '21', '11', 'AuthManage/category', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('34', '保存分类授权', '21', '12', 'AuthManage/addToCategory', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('35', '模型授权', '21', '13', 'AuthManage/modelauth', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('36', '保存模型授权', '21', '14', 'AuthManage/addToModel', '0', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('37', '新增权限节点', '21', '15', 'AuthManage/addNode', '1', '', '', '1', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('38', '前台权限管理', '21', '16', 'AuthManage/accessUser', '1', '', '权限管理', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('39', '删除权限节点', '21', '17', 'AuthManage/deleteNode', '1', '', '', '0', '', 'Admin');
+INSERT INTO `albert_menu` VALUES ('40', '行为日志', '4', '0', 'Action/actionlog', '0', '', '行为管理', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('41', '删除日志', '40', '0', 'Action/remove', '1', '', '', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('42', '清空日志', '40', '1', 'Action/clear', '1', '', '', '0', '', '');
 
 -- ----------------------------
 -- Table structure for albert_module
