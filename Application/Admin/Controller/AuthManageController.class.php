@@ -239,6 +239,55 @@ class AuthManageController extends AdminController
     }
 
     /**
+     * 将用户添加到用户组的编辑页面
+     */
+    public function group()
+    {
+        $uid = I('uid');
+        $auth_groups = D('AuthGroup')->getGroups();
+        $user_groups = AuthGroupModel::getUserGroup($uid);
+        $ids = array();
+        foreach ($user_groups as $value) {
+            $ids[] = $value['group_id'];
+        }
+        $nickname = D('Users')->getNickName($uid);
+        $this->assign('nickname', $nickname);
+        $this->assign('auth_groups', $auth_groups);
+        $this->assign('user_groups', implode(',', $ids));
+        $this->display();
+    }
+
+    /**
+     * 将用户添加到用户组,入参uid,group_id
+     */
+    public function addToGroup()
+    {
+        $uid = I('uid');
+        $gid = I('group_id');
+        if (empty($uid)) {
+            $this->error('参数有误！');
+        }
+        $AuthGroup = D('AuthGroup');
+        if (is_numeric($uid)) {
+            if (is_administrator($uid)) {
+                $this->error('该用户为超级管理员！');
+            }
+            if (!M('Member')->where(array('uid' => $uid))->find()) {
+                $this->error('管理员用户不存在！');
+            }
+        }
+
+        if ($gid && !$AuthGroup->checkGroupId($gid)) {
+            $this->error($AuthGroup->error);
+        }
+        if ($AuthGroup->addToGroup($uid, $gid)) {
+            $this->success('操作成功！');
+        } else {
+            $this->error($AuthGroup->getError());
+        }
+    }
+
+    /**
      * 将用户从用户组中移除  入参:uid,group_id
      */
     public function removeFromGroup()
