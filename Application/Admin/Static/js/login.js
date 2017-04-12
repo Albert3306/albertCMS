@@ -24,7 +24,7 @@ $(function(){
             if(data.status){
                 window.location.href = data.url;
             } else {
-                var msg = new $.zui.Messager(data.info, {placement: 'bottom'});
+                var msg = new $.Messager(data.info, {placement: 'bottom'});
                 msg.show();
                 //刷新验证码
                 $('[name=verify]').val('');
