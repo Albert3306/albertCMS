@@ -192,7 +192,7 @@ CREATE TABLE `albert_config` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`group`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of albert_config
@@ -209,6 +209,10 @@ INSERT INTO `albert_config` VALUES ('9', 'WEB_SITE_NAME', '2', '站点名称', '
 INSERT INTO `albert_config` VALUES ('10', 'COUNT_DAY', '0', '后台首页统计用户增长天数', '0', '', '默认统计最近半个月的用户数增长情况', '1420791945', '1420791945', '1', '7', '0');
 INSERT INTO `albert_config` VALUES ('11', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1379228036', '1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统\r\n5:邮件', '15');
 INSERT INTO `albert_config` VALUES ('12', 'LIST_ROWS', '0', '后台每页记录数', '2', '', '后台数据每页显示记录数', '1379503896', '1379503896', '1', '10', '24');
+INSERT INTO `albert_config` VALUES ('13', 'DATA_BACKUP_PATH', '1', '数据库备份根路径', '4', '', '路径必须以 / 结尾', '1381482411', '1381482411', '1', './Data/Backup', '16');
+INSERT INTO `albert_config` VALUES ('14', 'DATA_BACKUP_PART_SIZE', '0', '数据库备份卷大小', '4', '', '该值用于限制压缩后的分卷最大长度。单位：B；建议设置20M', '1381482488', '1381482488', '1', '20971520', '18');
+INSERT INTO `albert_config` VALUES ('15', 'DATA_BACKUP_COMPRESS', '4', '数据库备份文件是否启用压缩', '4', '0:不压缩\r\n1:启用压缩', '压缩备份文件需要PHP环境支持gzopen,gzwrite函数', '1381713345', '1381713345', '1', '1', '22');
+INSERT INTO `albert_config` VALUES ('16', 'DATA_BACKUP_COMPRESS_LEVEL', '4', '数据库备份文件压缩级别', '4', '1:普通\r\n4:一般\r\n9:最高', '数据库备份文件的压缩级别，该配置在开启压缩时生效', '1381713408', '1381713408', '1', '9', '25');
 
 -- ----------------------------
 -- Table structure for albert_file
@@ -303,6 +307,13 @@ INSERT INTO `albert_menu` VALUES ('42', '清空日志', '40', '1', 'Action/clear
 INSERT INTO `albert_menu` VALUES ('43', '行为限制列表', '4', '1', 'ActionLimit/limitList', '0', '', '行为限制', '0', '', '');
 INSERT INTO `albert_menu` VALUES ('44', '新增/编辑行为限制', '43', '0', 'ActionLimit/editLimit', '1', '', '', '0', '', '');
 INSERT INTO `albert_menu` VALUES ('45', '行为限制启用、禁用、删除', '43', '1', 'ActionLimit/setLimitStatus', '1', '', '', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('46', '备份数据库', '4', '2', 'Database/index?type=export', '0', '', '数据备份', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('47', '还原数据库', '4', '3', 'Database/index?type=import', '0', '', '数据备份', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('48', '备份', '46', '0', 'Database/export', '0', '', '', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('49', '优化表', '46', '1', 'Database/optimize', '0', '', '', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('50', '修复表', '46', '2', 'Database/repair', '0', '', '', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('51', '恢复', '47', '0', 'Database/import', '0', '', '', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('52', '删除', '47', '1', 'Database/del', '0', '', '', '0', '', '');
 
 -- ----------------------------
 -- Table structure for albert_module
