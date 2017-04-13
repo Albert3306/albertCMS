@@ -170,6 +170,7 @@ class AdminListBuilder extends AdminBuilder
         $attr['class']='btn ajax-post btn-info';
         return $this->buttonSetStatus($url, 1, $title, $attr);
     }
+
     /**
      * 删除到回收站
      */
@@ -193,7 +194,7 @@ class AdminListBuilder extends AdminBuilder
      */
     public function buttonClear($model = null)
     {
-        return $this->button(L('_CLEAR_OUT_'), array('class' => 'btn ajax-post tox-confirm', 'data-confirm' => L('_CONFIRM_CLEAR_OUT_'), 'url' => U('', array('model' => $model)), 'target-form' => 'ids', 'hide-data' => 'true'));
+        return $this->button('清空', array('class' => 'btn ajax-post tox-confirm', 'data-confirm' => '您确实要清空回收站吗？（清空后不可恢复）', 'url' => U('', array('model' => $model)), 'target-form' => 'ids', 'hide-data' => 'true'));
     }
 
     /**彻底删除
@@ -205,10 +206,10 @@ class AdminListBuilder extends AdminBuilder
     {
         if (!$url) $url = $this->_setDeleteTrueUrl;
         $attr['class'] = 'btn ajax-post tox-confirm';
-        $attr['data-confirm'] = L('_CONFIRM_DELETE_COMPLETELY_');
+        $attr['data-confirm'] = '您确实要彻底删除吗？（彻底删除后不可恢复）';
         $attr['url'] = $url;
         $attr['target-form'] = 'ids';
-        return $this->button(L('_DELETE_COMPLETELY_'), $attr);
+        return $this->button('彻底删除', $attr);
     }
 
     public function buttonSort($href, $title = '排序', $attr = array())
@@ -243,20 +244,17 @@ class AdminListBuilder extends AdminBuilder
      * @param string $arrdb 择筛选项数据来源
      * @param string $arrvalue 筛选数据（包含ID 和value的数组:array(array('id'=>1,'value'=>'系统'),array('id'=>2,'value'=>'项目'),array('id'=>3,'value'=>'机构'));）
      * @return $this
-     * @auth MingYang <xint5288@126.com>
      */
     public function search($title = '搜索', $name = 'key', $type = 'text', $des = '', $attr, $arrdb = '', $arrvalue = null)
     {
-
         if (empty($type) && $type = 'text') {
             $this->_search[] = array('title' => $title, 'name' => $name, 'type' => $type, 'des' => $des, 'attr' => $attr);
-//            $this->setSearchPostUrl('');
         } else {
             if (empty($arrdb)) {
                 $this->_search[] = array('title' => $title, 'name' => $name, 'type' => $type, 'des' => $des, 'attr' => $attr, 'field' => $field, 'table' => $table, 'arrvalue' => $arrvalue);
                 $this->setSearchPostUrl('');
             } else {
-                //TODO:呆完善如果$arrdb存在的就把当前数据表的$name字段的信息全部查询出来供筛选。
+                //TODO:待完善如果$arrdb存在的就把当前数据表的$name字段的信息全部查询出来供筛选。
             }
         }
         return $this;
@@ -284,11 +282,13 @@ class AdminListBuilder extends AdminBuilder
         }
         return $this;
     }
+
     public function selectPlateForm($id,$method,$action)
     {
        $this->_form[]=array('id'=>$id,'method'=>$method,'action'=>$action);
         return $this;
     }
+
     public function key($name, $title, $type, $opt = null, $width = '150px')
     {
         $key = array('name' => $name, 'title' => $title, 'type' => $type, 'opt' => $opt, 'width' => $width);
@@ -304,7 +304,7 @@ class AdminListBuilder extends AdminBuilder
      */
     public function keyText($name, $title)
     {
-        return $this->key($name, text($title), 'text');
+        return $this->key($name, op_t($title), 'text');
     }
 
     /**显示html
@@ -366,14 +366,14 @@ class AdminListBuilder extends AdminBuilder
 
     public function keyStatus($name = 'status', $title = '状态')
     {
-        $map = array(-1 => L('_DELETE_'), 0 => L('_DISABLE_'), 1 => L('_ENABLE_'), 2 => L('_UNAUDITED_'));
+        $map = array(-1 => '删除', 0 => '禁用', 1 => '启用', 2 => '未审核');
         return $this->key($name, $title, 'status', $map);
     }
 
     public function keyYesNo($name, $title)
     {
-        $map = array(0 => L('_NO_'), 1 => L('_YES_'));
-        return $this->keymap($name, $title, $map);
+        $map = array(0 => '否', 1 => '是');
+        return $this->keyMap($name, $title, $map);
     }
 
     public function keyBool($name, $title)
@@ -538,8 +538,8 @@ class AdminListBuilder extends AdminBuilder
     }
 
     /**
-     * $solist 判断是否属于选择返回数据的列表页，如果是在列表页->display('admin_solist');@mingyangliu
-     * */
+     * $solist 判断是否属于选择返回数据的列表页，如果是在列表页->display('admin_solist')
+     */
     public function display($solist = '')
     {
         //key类型的等价转换
@@ -683,7 +683,7 @@ class AdminListBuilder extends AdminBuilder
         //如果html为空
         $this->convertKey('html', 'html', function ($value) {
             if ($value === '') {
-                return '<span style="color:#bbb;">' . L('_EMPTY_BRACED_') . '</span>';
+                return '<span style="color:#bbb;">（空）</span>';
             }
             return $value;
         });
@@ -729,9 +729,9 @@ class AdminListBuilder extends AdminBuilder
         $id = array_unique((array)$ids);
         $rs = M($model)->where(array('id' => array('in', $id)))->save(array('status' => $status));
         if ($rs === false) {
-            $this->error(L('_ERROR_SETTING_') . L('_PERIOD_'));
+            $this->error('设置失败！');
         }
-        $this->success(L('_SUCCESS_SETTING_'), $_SERVER['HTTP_REFERER']);
+        $this->success('设置成功！', $_SERVER['HTTP_REFERER']);
     }
 
 
@@ -810,11 +810,11 @@ class AdminListBuilder extends AdminBuilder
 
                 $result = D($model)->where($map)->delete();
                 if ($result) {
-                    $this->success(L('_SUCCESS_TRASH_CLEARED_', array('result' => $result)));
+                    $this->success("成功清空回收站，共删除  {$result}   条记录。");
                 }
-                $this->error(L('_TRASH_ALREADY_EMPTY_'));
+                $this->error('回收站是空的，未能删除任何东西。');
             } else {
-                $this->error(L('_TRASH_SELECT_'));
+                $this->error('请选择要清空的模型。');
             }
         }
     }
@@ -828,7 +828,7 @@ class AdminListBuilder extends AdminBuilder
     {
         $ids = is_array($ids) ? $ids : explode(',', $ids);
         M($model)->where(array('id' => array('in', $ids)))->delete();
-        $this->success(L('_SUCCESS_DELETE_COMPLETELY_'), $_SERVER['HTTP_REFERER']);
+        $this->success('彻底删除成功', $_SERVER['HTTP_REFERER']);
     }
 
     /**

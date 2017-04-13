@@ -24,7 +24,8 @@ use Admin\Controller\AdminController;
  * @package Admin\Builder
  */
 abstract class AdminBuilder extends AdminController {
-    public function display($templateFile='',$charset='',$contentType='',$content='',$prefix='') {
+    public function display($templateFile='',$charset='',$contentType='',$content='',$prefix='')
+    {
         //获取模版的名称
         $template = dirname(__FILE__) . '/../View/default/Builder/' . $templateFile . '.html';
 
@@ -42,4 +43,3 @@ abstract class AdminBuilder extends AdminController {
         return $result;
     }
 }
-

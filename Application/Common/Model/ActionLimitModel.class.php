@@ -6,7 +6,7 @@ use Think\Model;
 
 /**
  * 行为日志模型
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class ActionLimitModel extends Model
 {

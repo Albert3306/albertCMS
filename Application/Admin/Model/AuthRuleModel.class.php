@@ -6,7 +6,7 @@ use Think\Model;
 
 /**
  * 权限规则模型
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class AuthRuleModel extends Model{
     

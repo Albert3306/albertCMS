@@ -6,7 +6,7 @@ use Think\Model;
 
 /**
  * 用户组模型类
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class AuthGroupModel extends Model {
     const TYPE_ADMIN        = 1;                   // 管理员用户组类型标识

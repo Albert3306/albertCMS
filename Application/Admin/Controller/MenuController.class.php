@@ -4,7 +4,7 @@ namespace Admin\Controller;
 
 /**
  * 菜单控制器
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class MenuController extends AdminController {
     private $menu_db;

@@ -4,7 +4,7 @@ use \Think\Controller;
 
 /**
  * 后台登录控制器
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class LoginController extends Controller
 {

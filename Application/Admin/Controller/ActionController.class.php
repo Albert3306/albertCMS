@@ -5,7 +5,7 @@ use Admin\Builder\AdminListBuilder;
 
 /**
  * 行为控制器
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class ActionController extends AdminController {
     /**

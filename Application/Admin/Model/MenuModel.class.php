@@ -5,7 +5,7 @@ use Think\Model;
 
 /**
  * 菜单模型
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class MenuModel extends Model {
 	protected $_validate = array(

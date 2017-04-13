@@ -7,7 +7,7 @@ use Vendor\requester;
 
 /**
  * 后台公共控制器
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class AdminController extends Controller
 {

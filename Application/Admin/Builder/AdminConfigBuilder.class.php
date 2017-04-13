@@ -135,7 +135,7 @@ class AdminConfigBuilder extends AdminBuilder
 
     public function keyStatus($name = 'status', $title = '状态', $subtitle = null)
     {
-        $map = array(-1 => L('_DELETE_'), 0 => L('_DISABLE_'), 1 => L('_ENABLE_'), 2 => L('_UNAUDITED_'));
+        $map = array(-1 => '删除', 0 => '禁用', 1 => '启用', 2 => '未审核');
         return $this->keySelect($name, $title, $subtitle, $map);
     }
 
@@ -189,13 +189,13 @@ class AdminConfigBuilder extends AdminBuilder
 
     public function keyBool($name, $title, $subtitle = null)
     {
-        $map = array(1 => L('_YES_'), 0 => L('_NO_'));
+        $map = array(1 => '是', 0 => '否');
         return $this->keyRadio($name, $title, $subtitle, $map);
     }
 
     public function keySwitch($name, $title, $subtitle = null)
     {
-        $map = array(1 => L('_OPEN_'), 0 => L('_CLOSE_'));
+        $map = array(1 => '开启', 0 => '关闭');
         return $this->keyRadio($name, $title, $subtitle, $map);
     }
 
@@ -485,10 +485,10 @@ class AdminConfigBuilder extends AdminBuilder
                     A(CONTROLLER_NAME)->$str(I(''));
                 }
                 header('Content-type: application/json');
-                exit(json_encode(array('info' => L('_SUCCESS_CONF_SAVE_').L('_PERIOD_'), 'status' => 1, 'url' => __SELF__)));
+                exit(json_encode(array('info' => '保存配置成功。', 'status' => 1, 'url' => __SELF__)));
             } else {
                 header('Content-type: application/json');
-                exit(json_encode(array('info' => L('_FAIL_CONF_SAVE_').L('_PERIOD_'), 'status' => 0, 'url' => __SELF__)));
+                exit(json_encode(array('info' => '保存配置失败。', 'status' => 0, 'url' => __SELF__)));
             }
 
 
@@ -611,9 +611,9 @@ class AdminConfigBuilder extends AdminBuilder
         $this->keyDefault($mod.'_LOCAL_COMMENT_CAN_GUEST',1);
         $this->keyDefault($mod.'_LOCAL_COMMENT_ORDER',0);
         $this->keyDefault($mod.'_LOCAL_COMMENT_COUNT',10);
-        $this->keyRadio($mod.'_LOCAL_COMMENT_CAN_GUEST', L('_COMMENTS_ALLOW_VISITOR_IF_'), L('_ALLOW_DEFAULT_'),array(0=>L('_DISALLOW_'),1=>L('_ALLOW_')))
-            ->keyRadio($mod.'_LOCAL_COMMENT_ORDER',L('_COMMENTS_SORT_'),L('_DESC_DEFAULT_'),array(0=>L('_DESC_'),1=>L('_ASC_')))
-            ->keyText($mod.'_LOCAL_COMMENT_COUNT',L('_COMMENTS_PAGE_DISPLAY_COUNT_'),L('_COMMENTS_PAGE_DISPLAY_COUNT_DESC'));
+        $this->keyRadio($mod.'_LOCAL_COMMENT_CAN_GUEST', '是否允许游客评论', '默认为允许',array(0=>'不允许',1=>'允许'))
+            ->keyRadio($mod.'_LOCAL_COMMENT_ORDER','评论排序','默认降序',array(0=>'降序',1=>'升序'))
+            ->keyText($mod.'_LOCAL_COMMENT_COUNT','每页评论显示的数量','每页默认展示的评论数量，超过则分页');
         $this->group($group_name, $mod.'_LOCAL_COMMENT_CAN_GUEST,'.$mod.'_LOCAL_COMMENT_ORDER,'.$mod.'_LOCAL_COMMENT_COUNT');
         return $this;
     }
@@ -632,12 +632,4 @@ class AdminConfigBuilder extends AdminBuilder
     public function addCustomJs($script){
         $this->assign('myJs',$script);
     }
-
-
-
-
-
-
-
-
 }

@@ -9,30 +9,25 @@
 <div class="controls ">
 <switch name="field.type">
     <case value="text">
-        <input type="text" name="{$field.name}" value="{$field.value|htmlspecialchars}"
-               class="text input-large form-control" style="width: 400px"/>
+        <input type="text" name="{$field.name}" value="{$field.value|htmlspecialchars}" class="text input-large form-control" style="width: 400px"/>
     </case>
 
     <case value="label">
         {$field.value}
     </case>
 
-
     <case value="hidden">
         <input type="hidden" name="{$field.name}" value="{$field.value}" class="text input-large"/>
     </case>
     <case value="readonly">
-        <input type="hidden" name="{$field.name}" value="{$field.value}" class="text input-large form-control"
-               style="width: 400px" placeholder="无需填写" readonly/>
+        <input type="hidden" name="{$field.name}" value="{$field.value}" class="text input-large form-control" style="width: 400px" placeholder="无需填写" readonly/>
         <p class="lead" >{$field.value}</p>
     </case>
     <case value="integer">
-        <input type="text" name="{$field.name}" value="{$field.value}" class="text input-large form-control"
-               style="width: 400px"/>
+        <input type="text" name="{$field.name}" value="{$field.value}" class="text input-large form-control" style="width: 400px"/>
     </case>
     <case value="uid">
-        <input type="text" name="{$field.name}" value="{$field.value}" class="text input-large form-control"
-               style="width: 100px"/>
+        <input type="text" name="{$field.name}" value="{$field.value}" class="text input-large form-control" style="width: 100px"/>
     </case>
     <case value="select">
         <select name="{$field.name}" class="form-control" style="width:auto;">
@@ -40,8 +35,7 @@
                 <php>
                     $selected = $field['value']==$key ? 'selected' : '';
                 </php>
-                <option value="{$key}"
-                {$selected}>{$option|htmlspecialchars}</option>
+                <option value="{$key}" {$selected}>{$option|htmlspecialchars}</option>
             </volist>
         </select>
     </case>
@@ -59,9 +53,7 @@
                 $checked = $field['value']==$key ? 'checked' : '';
                 $inputId = "id_$field[name]_$key";
             </php>
-            <label for="{$inputId}"> <input id="{$inputId}" name="{$field.name}" value="{$key}" type="radio"
-                {$checked}/>
-                {$option}</label> &nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="{$inputId}"> <input id="{$inputId}" name="{$field.name}" value="{$key}" type="radio" {$checked}/> {$option}</label> &nbsp;&nbsp;&nbsp;&nbsp;
         </volist>
     </case>
     <case value="icon">
@@ -101,9 +93,7 @@
 
                 <notempty name="field.value">
                     <div class="each">
-                    <a href="{$field.value|get_cover='path'}" title="点击查看大图">
-                        <img src="{$field.value|get_cover='path'}">
-                    </a>
+                        <a href="{$field.value|get_cover='path'}" title="点击查看大图"><img src="{$field.value|get_cover='path'}"></a>
                         <div class="text-center opacity del_btn" ></div>
                         <div onclick="admin_image.removeImage($(this),'{$field.value}')"  class="text-center del_btn">删除</div>
                     </div>
@@ -152,7 +142,6 @@
                 });
             })
         </script>
-
     </case>
 
     <case value="multiImage">
@@ -161,7 +150,6 @@
             <input class="attach" type="hidden" name="{$field.name}" value="{$field['value']}"/>
             <div class="upload-img-box">
                 <div class="upload-pre-item popup-gallery">
-
                     <notempty name="field.value">
                         <php>$aIds = explode(',',$field['value']);</php>
                         <volist name="aIds" id="aId">
@@ -173,8 +161,6 @@
                                 <div onclick="admin_image.removeImage($(this),'{$aId}')"  class="text-center del_btn">删除</div>
                             </div>
                         </volist>
-
-
                     </notempty>
                 </div>
             </div>
@@ -209,33 +195,29 @@
                 });
                 /*上传成功**/
                 uploader_{$field.name}.on('uploadSuccess', function (file, data) {
-                          if (data.status) {
-                            var ids = $("[name='{$field.name}']").val();
-                            ids = ids.split(',');
-                          if( ids.indexOf(data.id) == -1){
-                                var rids = admin_image.upAttachVal('add',data.id, $("[name='{$field.name}']"));
-                              if(rids.length>limit){
-                                  updateAlert('超过图片限制');
-                                  return;
-                              }
-                              $("[name='{$field.name}']").parent().find('.upload-pre-item').append(
-                                        ' <div class="each"><a href="'+ data.path+'" title="点击查看大图"><img src="'+ data.path+'"></a><div class="text-center opacity del_btn" ></div>' +
-                                                '<div onclick="admin_image.removeImage($(this),'+data.id+')"  class="text-center del_btn">删除</div></div>'
-                                );
-                            }else{
-                                updateAlert('该图片已存在');
+                    if (data.status) {
+                        var ids = $("[name='{$field.name}']").val();
+                        ids = ids.split(',');
+                        if ( ids.indexOf(data.id) == -1) {
+                            var rids = admin_image.upAttachVal('add',data.id, $("[name='{$field.name}']"));
+                            if (rids.length > limit) {
+                                updateAlert('超过图片限制');
+                                return;
                             }
-                        } else {
-                            updateAlert(data.info);
-                            setTimeout(function () {
-                                $('#top-alert').find('button').click();
-                                $(that).removeClass('disabled').prop('disabled', false);
-                            }, 1500);
+                            $("[name='{$field.name}']").parent().find('.upload-pre-item').append(' <div class="each"><a href="'+ data.path+'" title="点击查看大图"><img src="'+ data.path+'"></a><div class="text-center opacity del_btn" ></div>' + '<div onclick="admin_image.removeImage($(this),'+data.id+')"  class="text-center del_btn">删除</div></div>');
+                        }else{
+                            updateAlert('该图片已存在');
                         }
+                    } else {
+                        updateAlert(data.info);
+                        setTimeout(function () {
+                            $('#top-alert').find('button').click();
+                            $(that).removeClass('disabled').prop('disabled', false);
+                        }, 1500);
+                    }
                 });
             })
         </script>
-
     </case>
 
     <case value="checkbox">
@@ -250,22 +232,17 @@
                 $checked = in_array($key,$field['value_array']) ? 'checked' : '';
                 $inputId = "id_$field[name]_$key";
             </php>
-            <label for="{$inputId}"> <input type="checkbox" value="{$key}" id="{$inputId}" class="oneplus-checkbox"
-                                            data-field-name="{$field.name}" {$checked}/>
+            <label for="{$inputId}"> <input type="checkbox" value="{$key}" id="{$inputId}" class="oneplus-checkbox" data-field-name="{$field.name}" {$checked}/>
                 {$option}</label>
-
         </volist>
-        <input type="hidden" name="{$field.name}" class="oneplus-checkbox-hidden"
-               data-field-name="{$field.name}" value="{$field.value}"/>
-
+        <input type="hidden" name="{$field.name}" class="oneplus-checkbox-hidden"  data-field-name="{$field.name}" value="{$field.value}"/>
     </case>
+
     <case value="editor">
             {:W('Common/Ueditor/editor',array($field['name'],$field['name'],$field['value'],$field['style']['width'],$field['style']['height'],$field['config']))}
-
     </case>
     <case value="textarea">
-        <textarea name="{$field.name}" class="text input-large form-control"
-                  style="height: 8em;width: 400px;height: 200px">{$field.value|htmlspecialchars}</textarea>
+        <textarea name="{$field.name}" class="text input-large form-control" style="height: 8em;width: 400px;height: 200px">{$field.value|htmlspecialchars}</textarea>
     </case>
     <case value="time">
         <php>
@@ -276,8 +253,7 @@
             }
         </php>
         <input type="hidden" name="{$field.name}" value="{$field.value}"/>
-        <input type="text" data-field-name="{$field.name}" class="text input-large form-time time form-control"
-               style="width: 400px" value="{$field.value|time_format='H:i'}" placeholder="请选择时间"/>
+        <input type="text" data-field-name="{$field.name}" class="text input-large form-time time form-control" style="width: 400px" value="{$field.value|time_format='H:i'}" placeholder="请选择时间"/>
     </case>
     <case value="date">
         <php>
@@ -288,8 +264,7 @@
             }
         </php>
         <input type="hidden" name="{$field.name}" value="{$field.value}"/>
-        <input type="text" data-field-name="{$field.name}" class="text input-large form-date time form-control"
-               style="width: 400px" value="{$field.value|time_format='Y-m-d'}" placeholder="请选择时间"/>
+        <input type="text" data-field-name="{$field.name}" class="text input-large form-date time form-control" style="width: 400px" value="{$field.value|time_format='Y-m-d'}" placeholder="请选择时间"/>
     </case>
     <case value="datetime">
         <php>
@@ -300,8 +275,7 @@
             }
         </php>
         <input type="hidden" name="{$field.name}" value="{$field.value}"/>
-        <input type="text" data-field-name="{$field.name}" class="text input-large form-datetime time form-control"
-               style="width: 400px" value="{$field.value|time_format}" placeholder="请选择时间"/>
+        <input type="text" data-field-name="{$field.name}" class="text input-large form-datetime time form-control" style="width: 400px" value="{$field.value|time_format}" placeholder="请选择时间"/>
     </case>
 
     <!--添加城市选择（需安装城市联动插件,css样式不好处理排版有点怪）-->
@@ -344,7 +318,6 @@
 	<!--弹出窗口选择并返回值（目前只支持返回ID）结束 -->
 
     <case value="kanban">
-
         <input type="hidden" name="{$field.name}" value='{:json_encode($field["value"])}'/>
         <div class="kanbans" id="{$field.name}">
             <php>foreach($field['value'] as $key =>$kanban){</php>
@@ -390,37 +363,37 @@
                 })
             })
         </script>
-
     </case>
-<case value="chosen">
-    <select name="{$field.name}[]" style="width: 400px" class="chosen-select" multiple="multiple">
-        <php>
-            if( key($field['opt']) === 0){
-        </php>
-        <volist name="field['opt']" id="option">
+
+    <case value="chosen">
+        <select name="{$field.name}[]" style="width: 400px" class="chosen-select" multiple="multiple">
             <php>
-                $selected = in_array(reset($option),$field['value'])? 'selected' : '';
+                if( key($field['opt']) === 0){
             </php>
-            <option value="{:reset($option)}" {$selected}>{$option|end|htmlspecialchars}</option>
-        </volist>
-        <php>
-            }else{
-            foreach($field['opt'] as $optgroupkey =>$optgroup){
-        </php>
-        <optgroup label="{$optgroupkey}">
-            <volist name="optgroup" id="option">
+            <volist name="field['opt']" id="option">
                 <php>
                     $selected = in_array(reset($option),$field['value'])? 'selected' : '';
                 </php>
                 <option value="{:reset($option)}" {$selected}>{$option|end|htmlspecialchars}</option>
             </volist>
-        </optgroup>
-        <php>
-            }
-            }
-        </php>
-    </select>
-</case>
+            <php>
+                }else{
+                foreach($field['opt'] as $optgroupkey =>$optgroup){
+            </php>
+            <optgroup label="{$optgroupkey}">
+                <volist name="optgroup" id="option">
+                    <php>
+                        $selected = in_array(reset($option),$field['value'])? 'selected' : '';
+                    </php>
+                    <option value="{:reset($option)}" {$selected}>{$option|end|htmlspecialchars}</option>
+                </volist>
+            </optgroup>
+            <php>
+                }
+                }
+            </php>
+        </select>
+    </case>
 
     <case value="multiInput">
         <div class="clearfix" style="{$field['style']}">
@@ -430,8 +403,7 @@
         </php>
         <switch name="field['config'][$key]['type']">
             <case value="text">
-                <input type="text" name="{$val}" value="{$field['value'][$key]|htmlspecialchars}"
-                       class=" pull-left text input-large form-control" style="{$field['config'][$key]['style']}" placeholder="{$field['config'][$key]['placeholder']}"/>
+                <input type="text" name="{$val}" value="{$field['value'][$key]|htmlspecialchars}" class=" pull-left text input-large form-control" style="{$field['config'][$key]['style']}" placeholder="{$field['config'][$key]['placeholder']}"/>
             </case>
             <case value="select">
                 <select name="{$val}" class="pull-left form-control" style="{$field['config'][$key]['style']}" >

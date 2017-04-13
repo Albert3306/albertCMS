@@ -7,7 +7,7 @@ use Admin\Builder\AdminListBuilder;
 
 /**
  * 模块控制器
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class ModuleController extends AdminController
 {

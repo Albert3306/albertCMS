@@ -34,7 +34,7 @@
                 </li>
                 <script>
                     function clear_cache() {
-                        var msg = new $.zui.Messager("清理缓存成功", {placement: 'bottom'});
+                        var msg = new $.Messager("清理缓存成功", {placement: 'bottom'});
                         $.get('__ROOT__/cc.php');
                         msg.show()
                     }

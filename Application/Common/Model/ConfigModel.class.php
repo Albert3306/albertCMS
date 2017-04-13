@@ -5,7 +5,7 @@ use Think\Model;
 
 /**
  * 配置模型
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class ConfigModel extends Model {
     protected $_validate = array(

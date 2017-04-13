@@ -137,3 +137,44 @@ function get_time_ago($type = 'second', $some = 1, $time = null)
     }
     return $result;
 }
+
+/**
+ * 获取时间格式
+ * @param  string $key 时间格式的代号
+ */
+function get_time_unit($key = null){
+    $array = array('second' => '秒', 'minute' => '分', 'hour' => '小时', 'day' => '天', 'week' => '周', 'month' => '月', 'year' => '年');
+    return empty($key)?$array:$array[$key];
+}
+
+/**
+ * 获取惩罚的名称
+ * @param  string $key 惩罚代号
+ */
+function get_punish_name($key){
+    !is_array($key) && $key = explode(',',$key);
+    $obj =new \ActionLimit();
+    $punish = $obj->punish;
+    $return = array();
+    foreach($key as $val){
+        foreach($punish as $v){
+            if($v[0] == $val){
+                $return[]= $v[1];
+            }
+        }
+    }
+    return implode(',',$return);
+}
+
+/**
+ * 获取行为名称
+ * @param  string $key 行为代号
+ */
+function get_action_name($key){
+    !is_array($key) && $key = explode(',',str_replace(array('[',']'),'',$key));
+    $return = array();
+    foreach($key as $val){
+        $return[] = D('Action')->where(array('name'=>$val))->getField('title');
+    }
+    return implode(',',$return);
+}

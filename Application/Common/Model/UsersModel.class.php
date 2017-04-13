@@ -4,7 +4,7 @@ use Think\Model;
 
 /**
  * 用户模型
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class UsersModel extends Model{
     protected $_validate = array(

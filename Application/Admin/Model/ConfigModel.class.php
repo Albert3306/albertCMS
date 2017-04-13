@@ -5,7 +5,7 @@ use Think\Model;
 
 /**
  * 配置模型
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class ConfigModel extends Model {
     protected $_validate = array(
@@ -24,7 +24,7 @@ class ConfigModel extends Model {
     /**
      * 获取配置列表
      * @return array 配置数组
-     * @author albert https://github.com/Albert3306
+     * @author:albert https://github.com/Albert3306
      */
     public function lists()
     {
@@ -44,7 +44,7 @@ class ConfigModel extends Model {
      * 根据配置类型解析配置
      * @param  integer $type  配置类型
      * @param  string  $value 配置值
-     * @author albert https://github.com/Albert3306
+     * @author:albert https://github.com/Albert3306
      */
     private function parse($type, $value)
     {

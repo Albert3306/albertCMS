@@ -253,7 +253,7 @@ CREATE TABLE `albert_menu` (
   `module` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of albert_menu
@@ -300,6 +300,9 @@ INSERT INTO `albert_menu` VALUES ('39', '删除权限节点', '21', '17', 'AuthM
 INSERT INTO `albert_menu` VALUES ('40', '行为日志', '4', '0', 'Action/actionlog', '0', '', '行为管理', '0', '', '');
 INSERT INTO `albert_menu` VALUES ('41', '删除日志', '40', '0', 'Action/remove', '1', '', '', '0', '', '');
 INSERT INTO `albert_menu` VALUES ('42', '清空日志', '40', '1', 'Action/clear', '1', '', '', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('43', '行为限制列表', '4', '1', 'ActionLimit/limitList', '0', '', '行为限制', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('44', '新增/编辑行为限制', '43', '0', 'ActionLimit/editLimit', '1', '', '', '0', '', '');
+INSERT INTO `albert_menu` VALUES ('45', '行为限制启用、禁用、删除', '43', '1', 'ActionLimit/setLimitStatus', '1', '', '', '0', '', '');
 
 -- ----------------------------
 -- Table structure for albert_module

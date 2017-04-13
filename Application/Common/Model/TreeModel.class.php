@@ -3,7 +3,7 @@ namespace Common\Model;
 
 /**
  * 生成多层树状下拉选框的工具模型
- * @author albert https://github.com/Albert3306
+ * @author:albert https://github.com/Albert3306
  */
 class TreeModel {
 	/**
