@@ -7,7 +7,6 @@ use Admin\Model\AuthGroupModel;
 
 /**
  * 权限管理控制器
- * Class AuthManageController
  * @author:albert https://github.com/Albert3306
  */
 class AuthManageController extends AdminController
