@@ -407,6 +407,8 @@ CREATE TABLE `albert_users` (
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` tinyint(4) DEFAULT '0' COMMENT '用户状态',
   `type` tinyint(4) NOT NULL COMMENT '1：用户名注册 2：邮箱注册 3：手机注册',
+  `remember_token` varchar(60) COMMENT '认证',
+  `is_locked` tinyint(1) NOT NULL DEFAULT 0 COMMENT '是否锁定 1：是 0：否',
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `username` (`username`),
