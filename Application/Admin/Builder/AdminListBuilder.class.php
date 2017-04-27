@@ -597,7 +597,7 @@ class AdminListBuilder extends AdminBuilder
         $this->convertKey('icon', 'html', function ($value, $key, $item) {
             $value = htmlspecialchars($value);
             if ($value == '') {
-                $html = L('_NONE_');
+                $html = '无';
             } else {
                 $html = "<i class=\"$value\"></i> $value";
             }
@@ -613,10 +613,10 @@ class AdminListBuilder extends AdminBuilder
 
                 $src = getThumbImageById($value, 80, 80);
                 $sc_src = $sc_src == '' ? $src : $sc_src;
-                $html = "<div class='popup-gallery'><a title=\"" . L('_VIEW_BIGGER_') . "\" href=\"$sc_src\"><img src=\"$sc_src\"/ style=\"width:80px;height:80px\"></a></div>";
+                $html = "<div class='popup-gallery'><a title=\"查看大图\" href=\"$sc_src\"><img src=\"$sc_src\"/ style=\"width:80px;height:80px\"></a></div>";
             } else {//value是图片路径
                 $sc_src = $value;
-                $html = "<div class='popup-gallery'><a title=\"" . L('_VIEW_BIGGER_') . "\" href=\"$sc_src\"><img src=\"$sc_src\"/ style=\"border-radius:100%;\"></a></div>";
+                $html = "<div class='popup-gallery'><a title=\"查看大图\" href=\"$sc_src\"><img src=\"$sc_src\"/ style=\"border-radius:100%;\"></a></div>";
             }
             return $html;
         });
