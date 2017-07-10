@@ -25,7 +25,7 @@ class IndexController extends AdminController
             $today     = date('Y-m-d', time());
             $today     = strtotime($today);
             $count_day = C('COUNT_DAY',null,7);
-            $count['count_day']=$count_day;
+            $count['count_day'] = $count_day;
 
             for ($i = $count_day; $i--; $i >= 0) {
                 $day = $today - $i * 86400;
