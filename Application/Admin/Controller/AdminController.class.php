@@ -266,7 +266,7 @@ class AdminController extends Controller
                     if ($item['title'] == $nav_first_title) {
                         $menus['main'][$key]['class'] = 'active';
                         //生成child树
-                        $groups = M('Menu')->where("pid = {$item['id']}")->distinct(true)->field("`group`")->order('sort asc')->select();
+                        $groups = M('Menu')->where("pid = {$item['id']}")->field("`group`")->order('sort asc')->select();
 
                         if ($groups) {
                             $groups = array_column($groups, 'group');
